@@ -1,18 +1,25 @@
 import { Button, ButtonGroup } from '@chakra-ui/button'
-import { Box, Spacer, Text } from '@chakra-ui/layout'
+import { Box, Heading, Text } from '@chakra-ui/layout'
 import { Link } from 'react-router-dom'
-import { Flex, Image, useMediaQuery } from '@chakra-ui/react'
+import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Image, useDisclosure, useMediaQuery } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { AuthContextProvider } from '../Context/AuthContext'
 import Logo from '../Data/logo/health_care.png'
-import { FaCartPlus, FaUserCircle } from 'react-icons/fa'
+import { FaCartPlus, FaHome, FaHospitalAlt, FaMapMarkedAlt, FaUserCircle } from 'react-icons/fa'
 import { RiMenu3Line } from 'react-icons/ri'
+
 
 const Navbar = () => {
     const { state, logoutHandle } = useContext(AuthContextProvider);
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
 
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = React.useRef()
 
+    const handleLogout = () => {
+        onClose();
+        logoutHandle();
+    }
     return (
         <>
             <Flex w={"100%"} justifyContent={'space-between'} minWidth='max-content' h={'90px'} alignItems='center' bg='#2c022cf3' position="fixed" top={'-10px'} p={isLargerThan600 ? '' : "0px 15px 0px 0px"}>
@@ -93,7 +100,62 @@ const Navbar = () => {
 
                     </ButtonGroup>
                     :
-                    <RiMenu3Line fontSize={'30px'} />}
+                    <Box>
+                        <Button border={'1px solid red'} ref={btnRef} colorScheme='none' onClick={onOpen}>
+                            <RiMenu3Line onClick={onOpen} fontSize={'30px'} />
+                        </Button>
+
+                        <Drawer
+                            isOpen={isOpen}
+                            placement='right'
+                            onClose={onClose}
+                            finalFocusRef={btnRef}
+                        >
+                            <DrawerOverlay />
+                            <DrawerContent>
+                                <DrawerCloseButton />
+                                <DrawerHeader>
+                                    <Image w={"120px"} src={Logo} />
+                                </DrawerHeader>
+
+                                <DrawerBody
+                                    p={'0px 0px 0px 50px'}
+                                    display='flex'
+                                    flexDirection={'column'}
+                                    gap='25px'>
+                                    <Link to="/">
+                                        <Heading onClick={onClose} size={'md'} display={'flex'} alignItems='center' gap='10px'><FaHome />Home</Heading>
+                                    </Link>
+                                    <Link to="/doctorlist">
+                                        <Heading onClick={onClose} size={'md'} display={'flex'} alignItems='center' gap='10px'><FaHospitalAlt />Doctor's</Heading>
+                                    </Link>
+                                    <Link to="/status">
+                                        <Heading onClick={onClose} size={'md'} display={'flex'} alignItems='center' gap='10px'><FaMapMarkedAlt />Status</Heading>
+                                    </Link>
+                                    {state.isAuth ?
+                                        <Box>
+                                            <Heading size={'md'} onClick={onClose} mb={'25px'} display={'flex'} alignItems='center' gap='10px'><FaUserCircle />User</Heading>
+                                            <Heading size={'md'} onClick={onClose} display={'flex'} alignItems='center' gap='10px'><FaCartPlus />Cart</Heading>
+                                        </Box>
+                                        : null}
+                                </DrawerBody>
+
+                                <DrawerFooter>
+                                    <Heading size={'md'} mr={20}>
+                                        User Name
+                                    </Heading>
+                                    {state.isAuth ?
+                                        <Button colorScheme='blue' onClick={handleLogout}>Logout</Button>
+                                        :
+                                        <Link to="/login">
+                                            <Button colorScheme='blue' onClick={onClose}>Login</Button>
+                                        </Link>
+                                    }
+                                </DrawerFooter>
+                            </DrawerContent>
+                        </Drawer>
+                    </Box>
+                }
             </Flex>
         </>
     )
