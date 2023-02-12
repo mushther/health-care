@@ -101,7 +101,7 @@ const Navbar = () => {
                     </ButtonGroup>
                     :
                     <Box>
-                        <Button border={'1px solid red'} ref={btnRef} colorScheme='none' onClick={onOpen}>
+                        <Button ref={btnRef} colorScheme='none' onClick={onOpen}>
                             <RiMenu3Line onClick={onOpen} fontSize={'30px'} />
                         </Button>
 
@@ -134,7 +134,9 @@ const Navbar = () => {
                                     </Link>
                                     {state.isAuth ?
                                         <Box>
-                                            <Heading size={'md'} onClick={onClose} mb={'25px'} display={'flex'} alignItems='center' gap='10px'><FaUserCircle />User</Heading>
+                                            <Link to="/userlist">
+                                                <Heading size={'md'} onClick={onClose} mb={'25px'} display={'flex'} alignItems='center' gap='10px'><FaUserCircle />User</Heading>
+                                            </Link>
                                             <Heading size={'md'} onClick={onClose} display={'flex'} alignItems='center' gap='10px'><FaCartPlus />Cart</Heading>
                                         </Box>
                                         : null}

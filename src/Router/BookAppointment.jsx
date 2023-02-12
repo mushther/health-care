@@ -1,10 +1,13 @@
-import { Box, Button, FormControl, FormLabel, Heading, Input, Spinner, Text } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, Heading, Input, Spinner, Text, useMediaQuery } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import axios from "axios";
+import { FaTicketAlt } from 'react-icons/fa';
 
 
 const BookAppointment = () => {
     const [appointment] = useState(JSON.parse(localStorage.getItem("appointment")))
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+
     const initialData = {
         username: "",
         age: "",
@@ -65,7 +68,7 @@ const BookAppointment = () => {
                     />
                 </Box> :
                 <FormControl position={"none"}>
-                    <Heading>Book Doctor's Appointment</Heading>
+                    <Heading size={isLargerThan600 ? '2xl' : 'lg'} display='flex' alignItems='center' mb={5} gap='15px'>< FaTicketAlt />Book Doctor's Appointment</Heading>
                     <FormLabel>Patient Name</FormLabel>
                     <Input
                         position={"none"}
@@ -135,12 +138,12 @@ const BookAppointment = () => {
                             fontSize={"15px"}
                             fontWeight={"bold"}
                             p={1}
-                            borderRadius={30}
-                            mt={3} w={"17%"}
+                            borderRadius={3}
+                            mt={3} w={isLargerThan600 ? "17%" : '100%'}
                             color={"white"}
                             bg={"green"}
                         > Appointment Available : {(10) - (+(appointment.appointment))}</Text>
-                            : <Text textAlign={"start"} fontSize={"15px"} fontWeight={"bold"} p={1} borderRadius={30} mt={3} w={"17%"} color={"white"} bg={"red"}>Appointment Not Available</Text>
+                            : <Text textAlign={"start"} fontSize={"15px"} fontWeight={"bold"} p={1} borderRadius={3} mt={3} w={isLargerThan600 ? "17%" : "100%"} color={"white"} bg={"red"}>Appointment Not Available</Text>
                     }
                     {
                         +(appointment.appointment) >= 10 ?

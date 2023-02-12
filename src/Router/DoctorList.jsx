@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useMediaQuery } from '@chakra-ui/react'
 import axios from 'axios';
 import React from 'react'
 import { useEffect } from 'react';
@@ -8,10 +8,14 @@ import { Link } from 'react-router-dom';
 import CardSkeloten from '../Components/CardSkeloten';
 
 const DoctorList = () => {
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+
     const getData = () => {
+
         setIsLoading(true)
         axios.get(`https://doctor-appointment-seven.vercel.app/doctor`).then((res) => {
             setData(res.data)
@@ -58,10 +62,11 @@ const DoctorList = () => {
                             overflow='hidden'
                             variant='outline'
                             color={'white'}
+
                         >
                             <Image
                                 objectFit='cover'
-                                maxW={{ base: '80%', sm: '200px' }}
+                                maxW={{ base: '100%', sm: '200px' }}
                                 borderRadius={10}
                                 src='https://i.pinimg.com/originals/56/d1/c0/56d1c032884032f4216b9bc790c00a1e.jpg'
                                 alt='Caffe Latte'
@@ -70,7 +75,7 @@ const DoctorList = () => {
                             <Stack position={"none"}>
                                 <CardBody>
                                     <Heading textAlign={"start"} size='md'>{el.doctorname}</Heading>
-                                    <Box display={"flex"} gap={24}>
+                                    <Box display={isLargerThan600 ? 'flex' : 'grid'} textAlign='start' gap={isLargerThan600 ? 24 : 0}>
                                         <Text py='2'>
                                             {el.eduction}
                                         </Text>

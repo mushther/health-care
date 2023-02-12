@@ -1,12 +1,15 @@
-import { Box, Button, Card, CardBody, CardFooter, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Card, CardBody, CardFooter, Flex, Heading, Image, Spacer, Stack, Text, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 import axios from "axios"
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { FaCcApplePay, FaUser } from 'react-icons/fa'
+import { FaCcApplePay, FaCheckSquare, FaUser } from 'react-icons/fa'
+import { ImCross } from 'react-icons/im'
 import CardSkeloten from '../Components/CardSkeloten'
 
 const Userlist = () => {
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+
     const [data, setData] = useState([])
     const [isLoading, setisLoading] = useState(true)
 
@@ -22,7 +25,7 @@ const Userlist = () => {
     }, [])
     // console.log(data);
     return (
-        <Box color={'white'} m='auto' mt={"80px"} pt={"50px"} pb={"50px"} w='80%' display={'grid'} gap={5}>
+        <Box w='80%' display={'grid'} color={'white'} m='auto' mt={"80px"} pt={"50px"} pb={"50px"} gap={5}>
             <Heading display='flex' gap={4} alignItems={'center'}><FaUser /> User's List</Heading>
             {isLoading ? <Box>
                 <CardSkeloten line={4} />
@@ -40,15 +43,18 @@ const Userlist = () => {
                         <Card
                             position={"none"}
                             color={'white'}
-                            padding={5}
+                            padding={1}
                             direction={{ base: 'column', sm: 'row' }}
                             overflow='hidden'
                             variant='outline'
+
                         >
                             <Image
                                 objectFit='cover'
-                                maxW={{ base: '80%', sm: '200px' }}
+                                maxW={{ base: '94%', sm: '200px' }}
                                 borderRadius={10}
+                                ml='10px'
+                                mt='10px'
                                 src='https://i.pinimg.com/originals/bd/cc/2b/bdcc2b00e20a929d3fab83c87fda9a90.jpg'
                                 alt='Caffe Latte'
                             />
@@ -57,7 +63,7 @@ const Userlist = () => {
                                 <CardBody>
                                     <Heading textAlign={"start"} size='md'>{el.username}</Heading>
                                     <Heading textAlign={"start"} size='md'>Token No: {el.token}</Heading>
-                                    <Box display={"flex"} gap={24}>
+                                    <Box display={isLargerThan600 ? "flex" : 'grid'} textAlign={isLargerThan600 ? '' : 'start'} gap={isLargerThan600 ? 24 : 0}>
                                         <Text py='2'>
                                             Age: {el.age}
                                         </Text>
@@ -72,12 +78,12 @@ const Userlist = () => {
                                 </CardBody>
 
                                 <CardFooter>
-                                    {el.status ? <Button position={"none"} variant='solid' colorScheme='green'>Appointment Booked</Button>
+                                    {el.status ? <Button position={"none"} variant='solid' colorScheme='green' gap={2}>Appointment Booked <FaCheckSquare /></Button>
                                         :
-                                        <Flex w={'100%'} justifyContent={'space-between'} >
-                                            <Button position={"none"} variant='solid' colorScheme='red'>Appointment Not Book</Button>
+                                        <Box display={isLargerThan600 ? 'flex' : 'grid'} gap={2} w={'100%'} justifyContent={'space-between'} >
+                                            <Button position={"none"} variant='solid' colorScheme='red' gap={2}> Appointment Not Book<ImCross /></Button>
                                             <Button position={"none"} variant='solid' colorScheme='blue' gap={2}>Continue to Payment <FaCcApplePay /></Button>
-                                        </Flex>
+                                        </Box>
                                     }
                                 </CardFooter>
                             </Stack>

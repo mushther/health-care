@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, Heading, Input, useMediaQuery } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useState } from 'react'
 import { FaMapMarkedAlt } from 'react-icons/fa';
@@ -7,6 +7,8 @@ import CardSkeloten from '../Components/CardSkeloten';
 import Userstatus from './Userstatus';
 // FormHelperText,
 const Status = () => {
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+
     const [data, setData] = useState([]);
     const [value, setValue] = useState("");
     const [flag, setFlag] = useState(true);
