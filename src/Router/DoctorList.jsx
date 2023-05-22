@@ -12,12 +12,12 @@ const DoctorList = () => {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
+    //https://doctor-appointment-seven.vercel.app/
 
     const getData = () => {
 
         setIsLoading(true)
-        axios.get(`https://doctor-appointment-seven.vercel.app/doctor`).then((res) => {
+        axios.get(`https://renderapi-h6ct.onrender.com/doctor`).then((res) => {
             setData(res.data)
             setIsLoading(false);
         })

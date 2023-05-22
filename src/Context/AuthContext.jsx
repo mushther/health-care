@@ -3,18 +3,14 @@ import React, { useState } from 'react'
 export const AuthContextProvider = React.createContext();
 const intialState = {
     isAuth: false,
-    token: null
+    userId: null
 }
 
 const AuthContext = ({ children }) => {
     const [state, setStat] = useState(intialState);
 
-    //localStorage.setItem("auth", true);
-
-    //const status = localStorage.getItem('auth');
-
-    const loginHandle = (token) => {
-        setStat({ ...state, isAuth: true, token })
+    const loginHandle = (Id) => {
+        setStat({ ...state, isAuth: true, userId: Id })
     }
     const logoutHandle = () => {
         setStat(intialState)

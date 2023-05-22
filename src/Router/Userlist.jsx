@@ -1,22 +1,24 @@
-import { Box, Button, Card, CardBody, CardFooter, Flex, Heading, Image, Spacer, Stack, Text, useMediaQuery } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useMediaQuery } from '@chakra-ui/react'
+import React, { useContext } from 'react'
 import axios from "axios"
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { FaCcApplePay, FaCheckSquare, FaUser } from 'react-icons/fa'
 import { ImCross } from 'react-icons/im'
 import CardSkeloten from '../Components/CardSkeloten'
+import { AuthContextProvider } from '../Context/AuthContext'
 
 const Userlist = () => {
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-
+    const { state } = useContext(AuthContextProvider);
     const [data, setData] = useState([])
     const [isLoading, setisLoading] = useState(true)
 
     const getData = () => {
         setisLoading(true)
-        axios.get(`https://doctor-appointment-seven.vercel.app/user`).then((res) => {
-            setData(res.data);
+        axios.get(`https://renderapi-h6ct.onrender.com/user`).then((res) => {
+            const filtered = res.data.filter((item) => item.userId === state.userId);
+            setData(filtered);
             setisLoading(false)
         })
     }
@@ -26,7 +28,7 @@ const Userlist = () => {
     // console.log(data);
     return (
         <Box w='80%' display={'grid'} color={'white'} m='auto' mt={"80px"} pt={"50px"} pb={"50px"} gap={5}>
-            <Heading display='flex' gap={4} alignItems={'center'}><FaUser /> User's List</Heading>
+            <Heading display='flex' gap={4} alignItems={'center'}><FaUser />Appointment Booked User's List</Heading>
             {isLoading ? <Box>
                 <CardSkeloten line={4} />
                 <CardSkeloten line={4} />

@@ -1,12 +1,17 @@
-import { Box, Button, FormControl, FormLabel, Heading, Input, Spinner, Text, useMediaQuery } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Box, Button, FormControl, FormLabel, Heading, Input, Text, useMediaQuery, useToast } from '@chakra-ui/react'
+import React, { useContext, useState } from 'react'
 import axios from "axios";
 import { FaTicketAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { AuthContextProvider } from '../Context/AuthContext';
 
 
 const BookAppointment = () => {
     const [appointment] = useState(JSON.parse(localStorage.getItem("appointment")))
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+    const toast = useToast();
+    const navigate = useNavigate();
+    const { state } = useContext(AuthContextProvider);
 
     const initialData = {
         username: "",
@@ -17,7 +22,8 @@ const BookAppointment = () => {
         token: `HC${Date.now()}`,
         description: "",
         doctorname: appointment.doctorname,
-        doctorfee: appointment.doctorfee
+        doctorfee: appointment.doctorfee,
+        userId: state.userId
     }
     const [formState, setFormState] = useState(initialData);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,25 +36,37 @@ const BookAppointment = () => {
     //console.log(Date.now());
 
     const postData = (id) => {
-        // setIsLoading(true)
-        axios.post(`https://doctor-appointment-seven.vercel.app/user`, formState)
+        setIsLoading(true)
+        axios.post(`https://renderapi-h6ct.onrender.com/user`, formState)
             .then(function (response) {
-                console.log(response, "kalmi215682");
+                // console.log(response, );
                 setIsLoading(false)
             })
             .catch(function (error) {
                 console.log(error);
             })
-        alert(`Hello ${formState.username} Your Appointment Booked. Your Token No. ${formState.token}`)
         //console.log(formState);
 
-        axios.put(`https://doctor-appointment-seven.vercel.app/doctor/${id}`, {
-            "id": appointment.id,
-            "doctorname": appointment.doctorname,
-            "eduction": appointment.eduction,
-            "doctorfee": appointment.doctorfee,
-            "address": appointment.address,
+        axios.patch(`https://renderapi-h6ct.onrender.com/doctor/${id}`, {
             "appointment": +(appointment.appointment) + 1
+        }).then((res) => {
+            navigate("/")
+            toast({
+                title: 'Book Appointment Successfully.',
+                description: `Hello ${formState.username} Your Appointment Booked. Your Token No. ${formState.token}`,
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+            })
+        }).catch((err) => {
+            console.log(err);
+            toast({
+                title: 'Not Book Appointment Successfully.',
+                description: `Hello ${formState.username} Your Appointment is not Booked`,
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
         })
 
     }
@@ -56,102 +74,91 @@ const BookAppointment = () => {
 
     return (
         <Box w={"80%"} m={"auto"} pt={"35px"} pb={"95px"} mt={"80px"}>
-            {isLoading ?
-                <Box h='510px' display={'flex'} gap={10} justifyContent='center' alignItems='center'>
-                    <Heading>Loading......</Heading>
-                    <Spinner
-                        thickness='4px'
-                        speed='0.65s'
-                        emptyColor='gray.200'
-                        color='blue.500'
-                        size='xl'
-                    />
-                </Box> :
-                <FormControl position={"none"}>
-                    <Heading size={isLargerThan600 ? '2xl' : 'lg'} display='flex' alignItems='center' mb={5} gap='15px'>< FaTicketAlt />Book Doctor's Appointment</Heading>
-                    <FormLabel>Patient Name</FormLabel>
-                    <Input
-                        position={"none"}
-                        placeholder='Enter Your Name'
-                        type='text'
-                        name='username'
-                        onChange={handleChange}
-                        value={formState.username}
-                    />
-                    <FormLabel>Patient Age</FormLabel>
-                    <Input
-                        position={"none"}
-                        placeholder='Enter Your Age'
-                        type='number'
-                        name='age'
-                        onChange={handleChange}
-                        value={formState.age}
-                    />
-                    <FormLabel>Email Address</FormLabel>
-                    <Input
-                        position={"none"}
-                        type='email'
-                        placeholder='Enter Your Email'
-                        name='email'
-                        onChange={handleChange}
-                        value={formState.email}
-                    />
-                    <FormLabel>Mobile Number</FormLabel>
-                    <Input
-                        position={"none"}
-                        type='number'
-                        placeholder='Enter Your Moblie No.'
-                        name='mobile'
-                        onChange={handleChange}
-                        value={formState.mobile}
-                    />
-                    <FormLabel>Discribe Your Problem</FormLabel>
-                    <Input
-                        position={"none"}
-                        type='text'
-                        placeholder='Enter Your Problem'
-                        name='description'
-                        onChange={handleChange}
-                        value={formState.description}
-                    />
-                    <FormLabel>Doctor's Name</FormLabel>
-                    <Input
-                        position={"none"}
-                        disabled={true}
-                        type='text'
-                        name='doctorname'
-                        onChange={handleChange}
-                        value={formState.doctorname}
-                    />
-                    <FormLabel>Doctor's Fee</FormLabel>
-                    <Input
-                        position={"none"}
-                        disabled={true}
-                        type='text'
-                        name='doctorfee'
-                        onChange={handleChange}
-                        value={`₹${formState.doctorfee}/-`}
-                    />
-                    {
-                        +(appointment.appointment) < 10 ? <Text
-                            textAlign={"start"}
-                            fontSize={"15px"}
-                            fontWeight={"bold"}
-                            p={1}
-                            borderRadius={3}
-                            mt={3} w={isLargerThan600 ? "17%" : '100%'}
-                            color={"white"}
-                            bg={"green"}
-                        > Appointment Available : {(10) - (+(appointment.appointment))}</Text>
-                            : <Text textAlign={"start"} fontSize={"15px"} fontWeight={"bold"} p={1} borderRadius={3} mt={3} w={isLargerThan600 ? "17%" : "100%"} color={"white"} bg={"red"}>Appointment Not Available</Text>
-                    }
-                    {
-                        +(appointment.appointment) >= 10 ?
-                            <Button onClick={() => { postData(appointment.id) }} disabled={true} display={"block"} margin={"none"} marginTop={"15px"} colorScheme={"blue"}>Book Appointment</Button>
-                            : <Button onClick={(e) => { postData(appointment.id) }} display={"block"} margin={"none"} marginTop={"15px"} colorScheme={"blue"}>Book Appointment</Button>
-                    }
-                </FormControl>
-            }
+            <FormControl position={"none"}>
+                <Heading size={isLargerThan600 ? '2xl' : 'lg'} display='flex' alignItems='center' mb={5} gap='15px'>< FaTicketAlt />Book Doctor's Appointment</Heading>
+                <FormLabel>Patient Name</FormLabel>
+                <Input
+                    position={"none"}
+                    placeholder='Enter Your Name'
+                    type='text'
+                    name='username'
+                    onChange={handleChange}
+                    value={formState.username}
+                />
+                <FormLabel>Patient Age</FormLabel>
+                <Input
+                    position={"none"}
+                    placeholder='Enter Your Age'
+                    type='number'
+                    name='age'
+                    onChange={handleChange}
+                    value={formState.age}
+                />
+                <FormLabel>Email Address</FormLabel>
+                <Input
+                    position={"none"}
+                    type='email'
+                    placeholder='Enter Your Email'
+                    name='email'
+                    onChange={handleChange}
+                    value={formState.email}
+                />
+                <FormLabel>Mobile Number</FormLabel>
+                <Input
+                    position={"none"}
+                    type='number'
+                    placeholder='Enter Your Moblie No.'
+                    name='mobile'
+                    onChange={handleChange}
+                    value={formState.mobile}
+                />
+                <FormLabel>Discribe Your Problem</FormLabel>
+                <Input
+                    position={"none"}
+                    type='text'
+                    placeholder='Enter Your Problem'
+                    name='description'
+                    onChange={handleChange}
+                    value={formState.description}
+                />
+                <FormLabel>Doctor's Name</FormLabel>
+                <Input
+                    position={"none"}
+                    disabled={true}
+                    type='text'
+                    name='doctorname'
+                    onChange={handleChange}
+                    value={formState.doctorname}
+                />
+                <FormLabel>Doctor's Fee</FormLabel>
+                <Input
+                    position={"none"}
+                    disabled={true}
+                    type='text'
+                    name='doctorfee'
+                    onChange={handleChange}
+                    value={`₹${formState.doctorfee}/-`}
+                />
+                {
+                    +(appointment.appointment) < 10 ? <Text
+                        textAlign={"start"}
+                        fontSize={"15px"}
+                        fontWeight={"bold"}
+                        p={1}
+                        borderRadius={3}
+                        mt={3} w={isLargerThan600 ? "17%" : '100%'}
+                        color={"white"}
+                        bg={"green"}
+                    > Appointment Available : {(10) - (+(appointment.appointment))}</Text>
+                        : <Text textAlign={"start"} fontSize={"15px"} fontWeight={"bold"} p={1} borderRadius={3} mt={3} w={isLargerThan600 ? "17%" : "100%"} color={"white"} bg={"red"}>Appointment Not Available</Text>
+                }
+                {
+                    +(appointment.appointment) >= 10 ?
+                        <Button onClick={() => { postData(appointment.id) }} disabled={true} display={"block"} margin={"none"} marginTop={"15px"} colorScheme={"blue"}>Book Appointment</Button>
+                        : <Button onClick={(e) => { postData(appointment.id) }} display={"block"} margin={"none"} marginTop={"15px"} colorScheme={"blue"} isLoading={isLoading}>Book Appointment</Button>
+                }
+            </FormControl>
+
 
         </Box>
     )

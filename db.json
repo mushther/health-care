@@ -1,0 +1,292 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "username": "Rahul Jogi",
+      "age": 22,
+      "mobile": 9966884525,
+      "status": false,
+      "description": "ill from last two days and I'm not feel good and some pain in head",
+      "email": "rahul@gmail.com",
+      "token": "HC1673207153427",
+      "doctorname": "Dr Hasmat Yni",
+      "doctorfee": "700"
+    },
+    {
+      "id": 2,
+      "username": "Pirya Rai",
+      "age": 15,
+      "mobile": 9966889864,
+      "status": true,
+      "description": "ill from last two days and I'm not feel good and some pain in head",
+      "email": "priya@gmail.com",
+      "token": "HC1673207153417",
+      "doctorname": "Dr Lalu Baba",
+      "doctorfee": "400"
+    },
+    {
+      "id": 3,
+      "username": "Sony Kumari",
+      "age": 21,
+      "mobile": 9966889683,
+      "status": true,
+      "description": "ill from last two days and I'm not feel good and some pain in head",
+      "email": "sony@gmail.com",
+      "token": "HC1673207153421",
+      "doctorname": "Dr Lalu Baba",
+      "doctorfee": "400"
+    },
+    {
+      "id": 4,
+      "username": "Sanjeev Tangle",
+      "age": 27,
+      "mobile": 9568972520,
+      "status": true,
+      "description": "ill from last two days and I'm not feel good and some pain in head",
+      "email": "sanjeev@gmail.com",
+      "token": "HC1673207153415",
+      "doctorname": "Dr Jonh Rana",
+      "doctorfee": "800"
+    },
+    {
+      "id": 5,
+      "username": "Ali Yani",
+      "age": 35,
+      "mobile": 9966895620,
+      "status": true,
+      "description": "ill from last two days and I'm not feel good and some pain in head",
+      "email": "ali@gmail.com",
+      "token": "HC1673207153407",
+      "doctorname": "Dr Jonh Rana",
+      "doctorfee": "800"
+    }
+  ],
+  "doctor": [
+    {
+      "id": 1,
+      "doctorname": "Dr Lalu Baba",
+      "eduction": "MBBS BHMD SDDL from Ukrain",
+      "doctorfee": "400",
+      "address": "Colony No.4 New Patna",
+      "appointment": 2
+    },
+    {
+      "id": 2,
+      "doctorname": "Dr Riya Burman",
+      "eduction": "MBBS BHMD SDDL from Turki",
+      "doctorfee": "600",
+      "address": "Colony No.5 New Delhi",
+      "appointment": 0
+    },
+    {
+      "id": 3,
+      "doctorname": "Dr Aryan Kumar",
+      "eduction": "MBBS BHMD SDDL from Japan",
+      "doctorfee": "500",
+      "address": "Colony No.8 Mumbai",
+      "appointment": 10
+    },
+    {
+      "id": 4,
+      "doctorname": "Dr Hasmat Yni",
+      "eduction": "MBBS BHMD SDDL from London",
+      "doctorfee": "700",
+      "address": "Colony No.7 Kolkata",
+      "appointment": 1
+    },
+    {
+      "id": 5,
+      "doctorname": "Dr Hussain Ali",
+      "eduction": "MBBS BHMD SDDL from Mumbai",
+      "doctorfee": "900",
+      "address": "Colony No.9 Chandigarh",
+      "appointment": 0
+    },
+    {
+      "id": 6,
+      "doctorname": "Dr Annad Singh",
+      "eduction": "SBTC BHMD SDDL from Mumbai",
+      "doctorfee": "500",
+      "address": "Colony No.9 Sonpur",
+      "appointment": 10
+    },
+    {
+      "id": 7,
+      "doctorname": "Dr Jonh Rana",
+      "eduction": "MBBS BHMD SDDL from Thane",
+      "doctorfee": "800",
+      "address": "Colony No.9 Pune",
+      "appointment": 2
+    },
+    {
+      "id": 8,
+      "doctorname": "Dr Singth Yatri",
+      "eduction": "MBBS BHMD SDDL from Kota",
+      "doctorfee": "900",
+      "address": "Colony No.9 Patna",
+      "appointment": 0
+    }
+  ],
+  "medicine": [
+    {
+      "id": 1,
+      "medicineName": "TrueBasics",
+      "description": "TrueBasics Fish Oil with 1250mg Omega-3 560mg EPA 400mg DHA, 90 capsules",
+      "price": 185,
+      "reviews": 3,
+      "stock": 10,
+      "img1": "https://img3.hkrtcdn.com/22172/prd_2217192-TrueBasics-Fish-Oil-with-1250mg-Omega3-560mg-EPA-400mg-DHA-90-capsules_c_l.jpg",
+      "img2": "https://img1.hkrtcdn.com/22094/prd_2209360-TrueBasics-Fish-Oil-with-1250mg-Omega3-560mg-EPA-400mg-DHA-90-capsules_o.jpg",
+      "img3": "https://img5.hkrtcdn.com/22095/prd_2209424-TrueBasics-Fish-Oil-with-1250mg-Omega3-560mg-EPA-400mg-DHA-90-capsules_o.jpg"
+    },
+    {
+      "id": 2,
+      "medicineName": "HealthKart",
+      "description": "HealthKart HK Vitals Fish Oil 1000mg with 180mg EPA and 120mg DHA, 60 capsules",
+      "price": 253,
+      "reviews": 3.5,
+      "stock": 2,
+      "img1": "https://img5.hkrtcdn.com/20643/prd_2064254-HealthKart-HK-Vitals-Fish-Oil-1000mg-with-180mg-EPA-and-120mg-DHA-60-capsules_o.jpg",
+      "img2": "https://img3.hkrtcdn.com/16795/prd_1679432-HealthKart-HK-Vitals-Fish-Oil-1000mg-with-180mg-EPA-and-120mg-DHA-60-capsules_o.jpg",
+      "img3": "https://img7.hkrtcdn.com/16795/prd_1679426-HealthKart-HK-Vitals-Fish-Oil-1000mg-with-180mg-EPA-and-120mg-DHA-60-capsules_o.jpg"
+    },
+    {
+      "id": 3,
+      "medicineName": "Optimum Nutrition",
+      "description": "ON (Optimum Nutrition) Gold Standard 100% Whey Protein, 2.27 kg (5 lb), Double Rich Chocolate",
+      "price": 520,
+      "reviews": 2,
+      "stock": 14,
+      "img1": "https://img3.hkrtcdn.com/18797/prd_1879652-ON-Optimum-Nutrition-Gold-Standard-100-Whey-Protein-5-lb-Double-Rich-Chocolate_o.jpg",
+      "img2": "https://img1.hkrtcdn.com/18798/prd_1879790-ON-Optimum-Nutrition-Gold-Standard-100-Whey-Protein-5-lb-Double-Rich-Chocolate_o.jpg",
+      "img3": "https://img3.hkrtcdn.com/18798/prd_1879792-ON-Optimum-Nutrition-Gold-Standard-100-Whey-Protein-5-lb-Double-Rich-Chocolate_o.jpg"
+    },
+    {
+      "id": 4,
+      "medicineName": "MuscleBlaze",
+      "description": "MuscleBlaze Probiotic Muesli, 0.4 kg, Choco Cranberry",
+      "price": 160,
+      "reviews": 2.5,
+      "stock": 5,
+      "img1": "https://img8.hkrtcdn.com/15652/prd_1565197-MuscleBlaze-Probiotic-Muesli-0.4-kg-Choco-Cranberry_o.jpg",
+      "img2": "https://img6.hkrtcdn.com/15653/prd_1565205-MuscleBlaze-Probiotic-Muesli-0.4-kg-Choco-Cranberry_o.jpg",
+      "img3": "https://img10.hkrtcdn.com/15652/prd_1565199-MuscleBlaze-Probiotic-Muesli-0.4-kg-Choco-Cranberry_o.jpg"
+    },
+    {
+      "id": 5,
+      "medicineName": "MuscleBlaze Super",
+      "description": "MuscleBlaze Super Gainer XXL Powder, 3 kg (6.6 lb), Chocolate",
+      "price": 199,
+      "reviews": 3.5,
+      "stock": 21,
+      "img1": "https://img2.hkrtcdn.com/12139/prd_1213811-MuscleBlaze-Super-Gainer-XXL-OP-6.6-lb-Chocolate_o.jpg",
+      "img2": "https://img10.hkrtcdn.com/12139/prd_1213809-MuscleBlaze-Super-Gainer-XXL-OP-6.6-lb-Chocolate_o.jpg",
+      "img3": "https://img8.hkrtcdn.com/12139/prd_1213807-MuscleBlaze-Super-Gainer-XXL-OP-6.6-lb-Chocolate_o.jpg"
+    },
+    {
+      "id": 6,
+      "medicineName": "MB Fuel One",
+      "description": "MB Fuel One Whey Protein Immunity+, 1 kg (2.2 lb), Chocolate",
+      "price": 299,
+      "reviews": 4.5,
+      "stock": 7,
+      "img1": "https://img2.hkrtcdn.com/13488/prd_1348781-MB-Fuel-One-Whey-Protein-Immunity-2.2-lb-Chocolate_o.jpg",
+      "img2": "https://img9.hkrtcdn.com/19796/prd_1979518-MB-Fuel-One-Whey-Protein-Immunity-2.2-lb-Chocolate_o.jpg",
+      "img3": "https://img7.hkrtcdn.com/19796/prd_1979516-MB-Fuel-One-Whey-Protein-Immunity-2.2-lb-Chocolate_o.jpg"
+    },
+    {
+      "id": 7,
+      "medicineName": "MB Fuel two",
+      "description": "MB Fuel One Sports Protein, 400 g (0.88 lb), Chocolate",
+      "price": 399,
+      "reviews": 3,
+      "stock": 11,
+      "img1": "https://img5.hkrtcdn.com/20218/prd_2021704-MB-Fuel-One-Sports-Protein-0.88-lb-Chocolate_o.jpg",
+      "img2": "https://img5.hkrtcdn.com/22849/prd_2284874-MB-Fuel-One-Sports-Protein-0.88-lb-Chocolate_o.jpg",
+      "img3": "https://img7.hkrtcdn.com/20234/prd_2023376-MB-Fuel-One-Sports-Protein-0.88-lb-Chocolate_o.jpg"
+    },
+    {
+      "id": 8,
+      "medicineName": "GNC Pro Perf",
+      "description": "GNC Pro Performance 100% Whey Protein, 1.82 kg (4 lb), Chocolate Fudge",
+      "price": 560,
+      "reviews": 5,
+      "stock": 8,
+      "img1": "https://img7.hkrtcdn.com/22783/prd_2278206-GNC-Pro-Performance-100-Whey-Protein-4-lb-Chocolate-Fudge_o.jpg",
+      "img2": "https://img1.hkrtcdn.com/22783/prd_2278210-GNC-Pro-Performance-100-Whey-Protein-4-lb-Chocolate-Fudge_o.jpg",
+      "img3": "https://img1.hkrtcdn.com/22784/prd_2278320-GNC-Pro-Performance-100-Whey-Protein-4-lb-Chocolate-Fudge_o.jpg"
+    },
+    {
+      "id": 9,
+      "medicineName": "QNT ISO Ripped",
+      "description": "QNT ISO Ripped, 2 kg (4.4 lb), Cafe Bevarabia",
+      "price": 199,
+      "reviews": 3.5,
+      "stock": 9,
+      "img1": "https://img7.hkrtcdn.com/22747/prd_2274666-QNT-ISO-Ripped-4.4-lb-Cafe-Bevarabia_o.jpg",
+      "img2": "https://img5.hkrtcdn.com/22747/prd_2274654-QNT-ISO-Ripped-4.4-lb-Cafe-Bevarabia_o.jpg",
+      "img3": "https://img9.hkrtcdn.com/22747/prd_2274668-QNT-ISO-Ripped-4.4-lb-Cafe-Bevarabia_o.jpg"
+    },
+    {
+      "id": 10,
+      "medicineName": "MuscleBlaze High",
+      "description": "MuscleBlaze High Protein Peanut Butter, 1 kg, Dark Chocolate Creamy",
+      "price": 532,
+      "reviews": 2,
+      "stock": 12,
+      "img1": "https://img1.hkrtcdn.com/19873/prd_1987230-MuscleBlaze-High-Protein-Peanut-Butter-1-kg-Dark-Chocolate-Creamy-Tub_o.jpg",
+      "img2": "https://img7.hkrtcdn.com/21214/prd_2121306-MuscleBlaze-High-Protein-Peanut-Butter-1-kg-Dark-Chocolate-Creamy-Fit-Pack_o.jpg",
+      "img3": "https://img9.hkrtcdn.com/21214/prd_2121308-MuscleBlaze-High-Protein-Peanut-Butter-1-kg-Dark-Chocolate-Creamy-Fit-Pack_o.jpg"
+    }
+  ],
+  "loginData": [
+    {
+      "id": 1,
+      "name": "Hony Mony",
+      "userId": "hony65",
+      "mobile": 9669969691,
+      "email": "hony11@gmail.com",
+      "password": "hony11",
+      "image": "https://www.whatsappimages.in/wp-content/uploads/2020/12/Girls-12.jpg",
+      "bookAppointment": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Tony Jhoni",
+      "userId": "Tony65",
+      "mobile": 9669969789,
+      "email": "Tony11@gmail.com",
+      "password": "Tony11",
+      "image": "",
+      "bookAppointment": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "Lulu L La",
+      "userId": "lulu11",
+      "mobile": "9356895645",
+      "email": "lulu@gmail.com",
+      "password": "lulu11",
+      "image": "",
+      "id": 3
+    },
+    {
+      "name": "Md Shadab Alam",
+      "userId": "shadab11",
+      "mobile": "64314874653",
+      "email": "shadab@gmai.com",
+      "password": "shadab@gmai.com",
+      "image": "",
+      "id": 4
+    }
+  ]
+}

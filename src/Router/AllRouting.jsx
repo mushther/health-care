@@ -9,6 +9,8 @@ import Home from './Home'
 import Login from './Login'
 import Status from './Status'
 import Userlist from './Userlist'
+import SignUp from './SignUp'
+import Profile from './Profile'
 
 const AllRouting = () => {
     return (
@@ -17,6 +19,8 @@ const AllRouting = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/doctorlist' element={<PrivateRoute><DoctorList /></PrivateRoute>} />
                 <Route path='/userlist' element={<PrivateRoute><Userlist /></PrivateRoute>} />
+                <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
+                <Route path='/signup' element={<SignUp />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/status' element={<PrivateRoute><Status /></PrivateRoute>} />
                 <Route path='/bookappointment' element={<PrivateRoute><BookAppointment /></PrivateRoute>} />

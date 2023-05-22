@@ -73,7 +73,7 @@ const Navbar = () => {
                                     bg='none'
                                     fontWeight={'bold'}
                                     onClick={logoutHandle}>Logout</Button>
-                                <Link to="/userlist">
+                                <Link to="/profile">
                                     <Text marginRight={5} w={"43px"} fontSize='4xl'><FaUserCircle /> </Text>
                                 </Link>
                                 <Link to="/userlist">
@@ -134,8 +134,8 @@ const Navbar = () => {
                                     </Link>
                                     {state.isAuth ?
                                         <Box>
-                                            <Link to="/userlist">
-                                                <Heading size={'md'} onClick={onClose} mb={'25px'} display={'flex'} alignItems='center' gap='10px'><FaUserCircle />User</Heading>
+                                            <Link to="/profile">
+                                                <Heading size={'md'} onClick={onClose} mb={'25px'} display={'flex'} alignItems='center' gap='10px'><FaUserCircle /> User</Heading>
                                             </Link>
                                             <Heading size={'md'} onClick={onClose} display={'flex'} alignItems='center' gap='10px'><FaCartPlus />Cart</Heading>
                                         </Box>

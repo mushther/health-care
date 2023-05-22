@@ -13,11 +13,11 @@ const Home = () => {
 
     const getData = () => {
         setIsLoading(true)
-        axios.get(`https://doctor-appointment-seven.vercel.app/doctor`).then((res) => {
+        axios.get(`https://renderapi-h6ct.onrender.com/doctor`).then((res) => {
             setData(res.data)
             setIsLoading(false)
         })
-        axios.get(`https://doctor-appointment-seven.vercel.app/medicine`).then((res) => {
+        axios.get(`https://renderapi-h6ct.onrender.com/medicine`).then((res) => {
             setMedicineData(res.data)
             setIsLoading(false)
         })

@@ -9,62 +9,60 @@ const Userstatus = ({ data = [] }) => {
     return (
         <Box w={isLargerThan600 ? "60%" : '100%'} m='auto' mt={"20px"}>
             <Heading mb={10} display={'flex'} gap={4} alignItems={'center'}><FaMapMarkedAlt /><span>Your Current Booking Status</span></Heading>
-            {data.map((el) => (
-                <Box key={el.id}>
-                    <Card
-                        position={"none"}
-                        padding={5}
-                        direction={{ base: 'column', sm: 'row' }}
-                        overflow='hidden'
-                        variant='outline'
-                        color={'white'}
-                    >
-                        <Image
-                            objectFit='cover'
-                            maxW={{ base: '100%', sm: '200px' }}
-                            borderRadius={10}
-                            src='https://i.pinimg.com/originals/bd/cc/2b/bdcc2b00e20a929d3fab83c87fda9a90.jpg'
-                            alt='Caffe Latte'
-                        />
+            <Box >
+                <Card
+                    position={"none"}
+                    padding={5}
+                    direction={{ base: 'column', sm: 'row' }}
+                    overflow='hidden'
+                    variant='outline'
+                    color={'white'}
+                >
+                    <Image
+                        objectFit='cover'
+                        maxW={{ base: '100%', sm: '200px' }}
+                        borderRadius={10}
+                        src='https://i.pinimg.com/originals/bd/cc/2b/bdcc2b00e20a929d3fab83c87fda9a90.jpg'
+                        alt='Caffe Latte'
+                    />
 
-                        <Stack>
-                            <CardBody textAlign={"start"}>
-                                <Heading size='md' color={"blue.400"}>Token No : {el.token}</Heading>
-                                <Heading size='sm'>Patient Name : {el.username}</Heading>
-                                <Heading size='sm'>
-                                    Age: {el.age} year's
+                    <Stack>
+                        <CardBody textAlign={"start"}>
+                            <Heading size='md' color={"blue.400"}>Token No : {data.token}</Heading>
+                            <Heading size='sm'>Patient Name : {data.username}</Heading>
+                            <Heading size='sm'>
+                                Age: {data.age} year's
+                            </Heading>
+                            <Heading size='sm'>
+                                Contact Number: +91 {data.mobile}
+                            </Heading>
+                            <Heading size='sm'>
+                                Doctor's Name: {data.doctorname}
+                            </Heading>
+                            {data.status ?
+                                <Heading size='sm' color={"green"}>
+                                    Doctor's Fee: ₹{data.doctorfee}/-
+                                </Heading> :
+                                <Heading size='sm' color={"red"}>
+                                    Doctor's Fee: ₹{data.doctorfee}/-
                                 </Heading>
-                                <Heading size='sm'>
-                                    Contact Number: +91 {el.mobile}
-                                </Heading>
-                                <Heading size='sm'>
-                                    Doctor's Name: {el.doctorname}
-                                </Heading>
-                                {el.status ?
-                                    <Heading size='sm' color={"green"}>
-                                        Doctor's Fee: ₹{el.doctorfee}/-
-                                    </Heading> :
-                                    <Heading size='sm' color={"red"}>
-                                        Doctor's Fee: ₹{el.doctorfee}/-
-                                    </Heading>
-                                }
-                            </CardBody>
+                            }
+                        </CardBody>
 
-                            <CardFooter alignItems="center" display={isLargerThan600 ? 'flex' : 'grid'} gap={2}>
-                                <Heading size='md' marginRight={2}>Current Status : </Heading>
-                                {el.status ? <Button size={"lg"} position={"none"} variant='solid' colorScheme='green' gap={2}>Appointment Booked <FaCheckSquare /></Button> :
-                                    <Box display={isLargerThan600 ? 'flex' : 'grid'} gap={2}>
-                                        <Button size={"lg"} position={"none"} variant='solid' colorScheme='red' gap={2}>Appointment Not Book <ImCross /></Button>
-                                        <Button position={"none"} variant='solid' colorScheme='blue' gap={2}>Continue to Payment <FaCcApplePay /></Button>
-                                    </Box>
-                                }
-                            </CardFooter>
-                        </Stack>
-                    </Card>
+                        <CardFooter alignItems="center" display={isLargerThan600 ? 'flex' : 'grid'} gap={2}>
+                            <Heading size='md' marginRight={2}>Current Status : </Heading>
+                            {data.status ? <Button size={"lg"} position={"none"} variant='solid' colorScheme='green' gap={2}>Appointment Booked <FaCheckSquare /></Button> :
+                                <Box display={isLargerThan600 ? 'flex' : 'grid'} gap={2}>
+                                    <Button size={"lg"} position={"none"} variant='solid' colorScheme='red' gap={2}>Appointment Not Book <ImCross /></Button>
+                                    <Button position={"none"} variant='solid' colorScheme='blue' gap={2}>Continue to Payment <FaCcApplePay /></Button>
+                                </Box>
+                            }
+                        </CardFooter>
+                    </Stack>
+                </Card>
 
-                </Box>
-            ))
-            }
+            </Box>
+
         </Box >
     )
 }

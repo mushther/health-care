@@ -14,17 +14,20 @@ const Status = () => {
     const [flag, setFlag] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
 
-    console.log(value);
+    //console.log(value);
     const checkStatus = async (e) => {
+        setIsLoading(true)
         // e.preventDefault()
-        return await axios.get(`https://doctor-appointment-seven.vercel.app/user?q=${value}`).then((res) => {
-            setData(res);
+        return await axios.get(`https://renderapi-h6ct.onrender.com/user`).then((res) => {
             setValue("");
-            setIsLoading(false)
-            // console.log(data);
-        }).catch((err) =>
+            setIsLoading(false);
+            const statusData = res.data.find((el) => el.mobile == value || el.token == value)
+            setData(statusData);
+            console.log(statusData);
+        }).catch((err) => {
             console.log(err)
-        )
+            setIsLoading(false)
+        })
     }
     const handleSubmit = () => {
         checkStatus()
@@ -41,7 +44,6 @@ const Status = () => {
                         position={"none"}
                         placeholder=' Enter Your Token/Mobile Number'
                         type='text'
-                        value={value}
                         onChange={(e) => setValue(e.target.value)}
                     />
                     {value <= +(9) ? <Button
@@ -70,7 +72,7 @@ const Status = () => {
                         :
                         <Box>
                             <Userstatus
-                                data={data && data?.data}
+                                data={data}
                             />
                             <Link to="/status">
                                 <Button w={100} colorScheme={'blue'} mt='20px' onClick={() => { setFlag(true) }}> Back </Button>
