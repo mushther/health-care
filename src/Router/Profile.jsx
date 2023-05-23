@@ -7,12 +7,17 @@ import { FaEdit, FaSave, FaUser } from 'react-icons/fa'
 
 const Profile = () => {
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+    const { ProfilePic } = useContext(AuthContextProvider);
     const { state } = useContext(AuthContextProvider);
     const [data1, setData1] = useState([]);
     const [edit, setEdit] = useState("")
     const [isLoading, setIsLoading] = useState(false);
     const toast = useToast();
-
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     useEffect(() => {
         axios.get(`https://renderapi-h6ct.onrender.com/loginData`).then((res) => {
             const loginD = res.data.find((el) => el.userId == state.userId)
@@ -37,6 +42,7 @@ const Profile = () => {
             })
             setEdit("")
             setIsLoading(true);
+            ProfilePic(data1.image)
 
         }).catch((err) => {
             toast({

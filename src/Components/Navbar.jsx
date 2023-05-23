@@ -10,9 +10,9 @@ import { RiMenu3Line } from 'react-icons/ri'
 
 
 const Navbar = () => {
-    const { state, logoutHandle } = useContext(AuthContextProvider);
+    const { state, logoutHandle, picProfile } = useContext(AuthContextProvider);
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-
+    //console.log(picProfile)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
 
@@ -74,7 +74,7 @@ const Navbar = () => {
                                     fontWeight={'bold'}
                                     onClick={logoutHandle}>Logout</Button>
                                 <Link to="/profile">
-                                    <Text marginRight={5} w={"43px"} fontSize='4xl'><FaUserCircle /> </Text>
+                                    <Text marginRight={5} w={"43px"} fontSize='4xl'>{picProfile == "" ? <FaUserCircle /> : <Image src={picProfile} borderRadius={"50%"} />} </Text>
                                 </Link>
                                 <Link to="/userlist">
                                     <Text marginRight={5} w={"43px"} fontSize='4xl'><FaCartPlus /> </Text>

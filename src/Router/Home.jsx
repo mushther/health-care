@@ -1,16 +1,21 @@
 import { Box, Heading, Image, Button, Text, Grid, useMediaQuery } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import Medicines from '../pages/Medicines';
 import CardSkeloten from '../Components/CardSkeloten';
+import { BsArrowRightShort } from 'react-icons/bs';
 const Home = () => {
     const [data, setData] = useState([]);
     const [medicineData, setMedicineData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-
-
+    const navigate = useNavigate();
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     const getData = () => {
         setIsLoading(true)
         axios.get(`https://renderapi-h6ct.onrender.com/doctor`).then((res) => {
@@ -24,7 +29,6 @@ const Home = () => {
     }
     useEffect(() => {
         getData()
-
     }, [])
 
     const handleApntNumber = (el) => {
@@ -101,7 +105,7 @@ const Home = () => {
 
                 }
             </Box>
-            <Heading mt={5} ml={isLargerThan600 ? "80px" : '20px'} size={isLargerThan600 ? '' : 'md'} textAlign={"start"}>Top Doctor's of City</Heading>
+            <Heading mt={5} ml={isLargerThan600 ? "80px" : '20px'} size={isLargerThan600 ? 'xl' : 'md'} textAlign={"start"}>Top Doctor's of City</Heading>
             {
                 isLoading ?
                     <Grid w='100%' gridTemplateColumns={isLargerThan600 ? 'repeat(4,1fr)' : 'repeat(1,1fr)'} padding={isLargerThan600 ? "20px 80px 80px 80px" : "5px"} gap={isLargerThan600 ? 5 : 1} >
@@ -120,7 +124,7 @@ const Home = () => {
                         gridTemplateColumns={isLargerThan600 ? 'repeat(4,1fr)' : 'repeat(1,1fr)'} padding={isLargerThan600 ? "20px 80px 80px 80px" : "15px"} gap={isLargerThan600 ? 5 : 1}
                     >
                         {data.map((el) => (
-                            <Box padding={2}>
+                            <Box padding={2} key={el.id}>
                                 <Image
                                     _hover={{
                                         border: '2px solid white'
@@ -158,7 +162,10 @@ const Home = () => {
                             </Box>
                         ))}
                     </Box>}
-            <Heading color={'white'} padding={isLargerThan600 ? "20px 80px 80px 80px" : "20px"} size={isLargerThan600 ? '' : "md"} textAlign={"start"}>Medicine</Heading>
+            <Box w={"100%"} display={'flex'} justifyContent={'end'} mt={-10} >
+                <Heading onClick={() => { navigate('/doctorlist') }} w={"10%"} size={'md'} display={'flex'} mr={"6%"} justifyContent={'end'} alignItems={'end'} gap={2} _hover={{ color: 'lightblue', textDecoration: 'underline' }} >Show more <BsArrowRightShort /></Heading>
+            </Box>
+            <Heading color={'white'} padding={isLargerThan600 ? "20px 80px 80px 80px" : "20px"} size={isLargerThan600 ? 'xl' : "md"} textAlign={"start"}>Medicine</Heading>
             {isLoading ?
                 <Grid w='100%' gridTemplateColumns={isLargerThan600 ? 'repeat(4,1fr)' : 'repeat(1,1fr)'} padding={isLargerThan600 ? "20px 80px 80px 80px" : "15px"} gap={isLargerThan600 ? 5 : 1}>
                     <CardSkeloten line={6} />
@@ -176,6 +183,7 @@ const Home = () => {
                 <Grid padding={isLargerThan600 ? "20px 80px 80px 80px" : '10px'} gap={5} gridTemplateColumns={isLargerThan600 ? 'repeat(4,1fr)' : 'repeat(1,1fr)'}>
                     {medicineData.map((el) => (
                         <Medicines
+                            key={el.id}
                             medicineName={el.medicineName}
                             description={el.description}
                             id={el.id}

@@ -12,7 +12,11 @@ const BookAppointment = () => {
     const toast = useToast();
     const navigate = useNavigate();
     const { state } = useContext(AuthContextProvider);
-
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     const initialData = {
         username: "",
         age: "",

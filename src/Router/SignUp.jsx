@@ -18,8 +18,14 @@ const SignUp = () => {
     const toast = useToast()
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const [Disabled, setDisabled] = useState(false)
-
+    const [DisabledUserId, setDisabledUserId] = useState(false)
+    const [DisabledMobile, setDisabledMobile] = useState(false)
+    const [DisabledEmail, setDisabledEmail] = useState(false)
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     //https://doctor-appointment-seven.vercel.app/loginData
     const handleSignup = () => {
         setIsLoading(true)
@@ -53,14 +59,22 @@ const SignUp = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
         axios.get(`https://renderapi-h6ct.onrender.com/loginData`).then((res) => {
-
             //setData(res.data)
             const userIdData = res.data.find((el) => el.userId == formData.userId)
+            const mobileData = res.data.find((el) => el.mobile == formData.mobile)
+            const emailData = res.data.find((el) => el.email == formData.email)
+
             // console.log(userIdData);
             if (userIdData) {
-                setDisabled(true)
+                setDisabledUserId(true)
+            } else if (mobileData) {
+                setDisabledMobile(true)
+            } else if (emailData) {
+                setDisabledEmail(true)
             } else {
-                setDisabled(false);
+                setDisabledUserId(false);
+                setDisabledMobile(false);
+                setDisabledEmail(false);
             }
         })
 
@@ -76,42 +90,51 @@ const SignUp = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
+                    onMouseOut={handleInputChange}
                     placeholder="Name"
                     type="text"
                 />
 
                 <FormLabel>User ID</FormLabel>
                 <Input
-                    bg={Disabled ? "red.300" : null}
+                    borderColor={DisabledUserId ? "red.300" : null}
                     name="userId"
                     value={formData.userId}
                     onChange={handleInputChange}
+                    onMouseOut={handleInputChange}
                     placeholder="User ID"
                     type="text"
                 />
-                <FormHelperText textAlign={"start"} color={Disabled ? "red.300" : null}>
+                {DisabledUserId ? <FormHelperText textAlign={"start"} color={"red.300"}>
                     Enter a unique User ID
-                </FormHelperText>
+                </FormHelperText> : null}
 
                 <FormLabel>Mobile Number</FormLabel>
                 <Input
+                    borderColor={DisabledMobile ? "red.300" : null}
                     name="mobile"
                     value={formData.mobile}
                     onChange={handleInputChange}
+                    onMouseOut={handleInputChange}
                     placeholder="Phone number"
                     type="number"
                 />
-
+                {DisabledMobile ? <FormHelperText textAlign={"start"} color={"red.300"}>
+                    This Mobile number is already register.
+                </FormHelperText> : null}
                 <FormLabel>Email address</FormLabel>
                 <Input
+                    borderColor={DisabledEmail ? "red.300" : null}
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    onMouseOut={handleInputChange}
                     placeholder="Enter email address"
                     type="email"
                 />
-                <FormHelperText textAlign={"start"}>
-                    We'll never share your email.
+
+                <FormHelperText textAlign={"start"} color={DisabledEmail ? "red.300" : null}>
+                    {DisabledEmail ? "This email Id is already register." : "We'll never share your email"}
                 </FormHelperText>
 
                 <FormLabel>Password</FormLabel>
@@ -119,11 +142,12 @@ const SignUp = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
+                    onMouseOut={handleInputChange}
                     placeholder="Enter Password"
                     type="password"
                 />
                 <Button
-                    disabled={Disabled}
+                    disabled={DisabledUserId || DisabledEmail || DisabledMobile}
                     display="block"
                     margin="none"
                     marginTop="15px"

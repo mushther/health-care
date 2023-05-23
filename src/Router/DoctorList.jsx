@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useMediaQuery } from '@chakra-ui/react'
+import { Box, Button, Card, CardBody, CardFooter, Flex, Heading, Image, Stack, Text, useMediaQuery } from '@chakra-ui/react'
 import axios from 'axios';
 import React from 'react'
 import { useEffect } from 'react';
@@ -9,15 +9,20 @@ import CardSkeloten from '../Components/CardSkeloten';
 
 const DoctorList = () => {
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-
+    const [page, setPage] = useState(1)
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     //https://doctor-appointment-seven.vercel.app/
-
+    //console.log(data);
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     const getData = () => {
 
         setIsLoading(true)
-        axios.get(`https://renderapi-h6ct.onrender.com/doctor`).then((res) => {
+        axios.get(`https://renderapi-h6ct.onrender.com/doctor?_page=${page}&_limit=4`).then((res) => {
             setData(res.data)
             setIsLoading(false);
         })
@@ -25,7 +30,7 @@ const DoctorList = () => {
     useEffect(() => {
         getData()
 
-    }, [])
+    }, [page])
     //console.log(data);
     const handleApntNumber = (el) => {
         let drid = {
@@ -43,10 +48,6 @@ const DoctorList = () => {
         <Box m='auto' mt={"80px"} pt={"50px"} pb={"50px"} w='80%' display={'grid'} gap={5}>
             <Heading display='flex' gap={4} alignItems={'center'}><FaListAlt /> Doctor's List</Heading>
             {isLoading ? <Box>
-                <CardSkeloten line={4} />
-                <CardSkeloten line={4} />
-                <CardSkeloten line={4} />
-                <CardSkeloten line={4} />
                 <CardSkeloten line={4} />
                 <CardSkeloten line={4} />
                 <CardSkeloten line={4} />
@@ -118,9 +119,16 @@ const DoctorList = () => {
                         </Card>
                     </Box>
                 ))}
+            <Flex gap={2} justifyContent={'center'}>
+                <Button disabled={page == 1} onClick={() => { setPage(page - 1) }} colorScheme='facebook'>Prev</Button>
+                <Button colorScheme='facebook'>{page}</Button>
+                <Button onClick={() => { setPage(page + 1) }} disabled={page == 2} colorScheme='facebook'>Next</Button>
+            </Flex>
         </Box>
     )
 }
+
+export default DoctorList
 /*
 address: "Colony No.4 New Patna"
 appointment: 0
@@ -129,5 +137,3 @@ doctorname: "Dr Lalu Baba"
 eduction: "MBBS BHMD SDDL from Ukrain"
 id:1
 **/
-
-export default DoctorList

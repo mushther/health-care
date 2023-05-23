@@ -13,7 +13,11 @@ const Status = () => {
     const [value, setValue] = useState("");
     const [flag, setFlag] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
-
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     //console.log(value);
     const checkStatus = async (e) => {
         setIsLoading(true)

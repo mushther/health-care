@@ -13,7 +13,11 @@ const Userlist = () => {
     const { state } = useContext(AuthContextProvider);
     const [data, setData] = useState([])
     const [isLoading, setisLoading] = useState(true)
-
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     const getData = () => {
         setisLoading(true)
         axios.get(`https://renderapi-h6ct.onrender.com/user`).then((res) => {
