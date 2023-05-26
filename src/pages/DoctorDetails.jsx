@@ -1,8 +1,11 @@
+
 import React, { useState } from 'react'
 import { Box, Button, Card, CardBody, CardFooter, Flex, Heading, Image, Stack, useMediaQuery, } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { TbListDetails } from 'react-icons/tb'
 import { FaStar } from 'react-icons/fa'
+
+import React from 'react'
 
 const DoctorDetails = () => {
     const [data] = useState(JSON.parse(localStorage.getItem("appointment")))
