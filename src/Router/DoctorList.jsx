@@ -4,7 +4,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
 import { FaListAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CardSkeloten from '../Components/CardSkeloten';
 
 const DoctorList = () => {
@@ -12,6 +12,7 @@ const DoctorList = () => {
     const [page, setPage] = useState(1)
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
     //https://doctor-appointment-seven.vercel.app/
     //console.log(data);
     window.scrollTo({
@@ -39,11 +40,15 @@ const DoctorList = () => {
             "eduction": el.eduction,
             "doctorfee": el.doctorfee,
             "address": el.address,
-            "appointment": el.appointment
+            "appointment": el.appointment,
+            "rating": el.rating
         }
         localStorage.setItem("appointment", JSON.stringify(drid))
     }
-
+    const cardHandle = (el) => {
+        handleApntNumber(el)
+        navigate('/doctorDetails')
+    }
     return (
         <Box m='auto' mt={"80px"} pt={"50px"} pb={"50px"} w='80%' display={'grid'} gap={5}>
             <Heading display='flex' gap={4} alignItems={'center'}><FaListAlt /> Doctor's List</Heading>
@@ -55,7 +60,7 @@ const DoctorList = () => {
             </Box>
                 :
                 data.map((el) => (
-                    <Box key={el.id} >
+                    <Box key={el.id} onClick={() => { cardHandle(el) }}>
                         <Card
                             position={"none"}
                             padding={5}
@@ -122,7 +127,7 @@ const DoctorList = () => {
             <Flex gap={2} justifyContent={'center'}>
                 <Button disabled={page == 1} onClick={() => { setPage(page - 1) }} colorScheme='facebook'>Prev</Button>
                 <Button colorScheme='facebook'>{page}</Button>
-                <Button onClick={() => { setPage(page + 1) }} disabled={page == 2} colorScheme='facebook'>Next</Button>
+                <Button onClick={() => { setPage(page + 1) }} disabled={page == 3} colorScheme='facebook'>Next</Button>
             </Flex>
         </Box>
     )

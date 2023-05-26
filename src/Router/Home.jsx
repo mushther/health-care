@@ -18,7 +18,7 @@ const Home = () => {
     });
     const getData = () => {
         setIsLoading(true)
-        axios.get(`https://renderapi-h6ct.onrender.com/doctor`).then((res) => {
+        axios.get(`https://renderapi-h6ct.onrender.com/doctor?_limit=8`).then((res) => {
             setData(res.data)
             setIsLoading(false)
         })
@@ -38,11 +38,15 @@ const Home = () => {
             "eduction": el.eduction,
             "doctorfee": el.doctorfee,
             "address": el.address,
-            "appointment": el.appointment
+            "appointment": el.appointment,
+            "rating": el.rating
         }
         localStorage.setItem("appointment", JSON.stringify(drid))
     }
-    //console.log(data);
+    const cardHandle = (el) => {
+        handleApntNumber(el)
+        navigate('/doctorDetails')
+    }
     return (
         <Box mt={"80px"} >
             <Box height={"auto"} display={isLargerThan600 ? "" : "grid"} justifyContent={isLargerThan600 ? "space-between" : ""} padding={isLargerThan600 ? "4rem" : "1rem"} >
@@ -124,7 +128,7 @@ const Home = () => {
                         gridTemplateColumns={isLargerThan600 ? 'repeat(4,1fr)' : 'repeat(1,1fr)'} padding={isLargerThan600 ? "20px 80px 80px 80px" : "15px"} gap={isLargerThan600 ? 5 : 1}
                     >
                         {data.map((el) => (
-                            <Box padding={2} key={el.id}>
+                            <Box padding={2} key={el.id} onClick={() => { cardHandle(el) }}>
                                 <Image
                                     _hover={{
                                         border: '2px solid white'

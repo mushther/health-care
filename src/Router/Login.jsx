@@ -29,7 +29,7 @@ const Login = () => {
             if (loginD) {
                 //alert("Login Succesfully")
                 navigate("/")
-                loginHandle(loginD.userId);
+                loginHandle(loginD.userId, loginD.name);
                 ProfilePic(loginD.image)
                 setIsLoading(false)
                 toast({

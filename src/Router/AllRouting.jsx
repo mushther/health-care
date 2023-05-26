@@ -12,6 +12,8 @@ import Userlist from './Userlist'
 import SignUp from './SignUp'
 import Profile from './Profile'
 import ForgotPassowrd from './ForgotPassowrd'
+import DoctorDetails from '../pages/DoctorDetails'
+import Review from '../Components/Review'
 
 const AllRouting = () => {
     return (
@@ -27,6 +29,8 @@ const AllRouting = () => {
                 <Route path='/bookappointment' element={<PrivateRoute><BookAppointment /></PrivateRoute>} />
                 <Route path='/medicines' element={<Medicines />} />
                 <Route path='/forgotPassword' element={<ForgotPassowrd />} />
+                <Route path='/doctorDetails' element={<DoctorDetails />} />
+                <Route path='/review' element={<PrivateRoute><Review /></PrivateRoute>} />
             </Routes>
         </>
     )
