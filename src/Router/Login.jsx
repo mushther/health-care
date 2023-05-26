@@ -83,11 +83,11 @@ const Login = () => {
                     colorScheme={"blue"}
                     isLoading={isLoading}
                 >Login</Button>
-                <Box display={'flex'} w={"27%"} ml="74%" justifyContent={'space-between'} justifyItems={'center'} border={"0px solid white"}>
-                    <Flex onClick={() => { navigate('/signup') }} gap={4} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} p={1} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
+                <Box display={'flex'} w={"27%"} ml="73%" justifyContent={'space-between'} justifyItems={'center'} border={"0px solid white"}>
+                    <Flex onClick={() => { navigate('/signup') }} gap={4} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} p={1} pl={3} pr={3} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
                         SignUp Here <FaArrowAltCircleRight />
                     </Flex >
-                    <Flex gap={4} onClick={() => { navigate('/forgotPassword') }} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} p={1} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
+                    <Flex gap={4} onClick={() => { navigate('/forgotPassword') }} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} p={1} pl={3} pr={3} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
                         Forgot Password <FaArrowAltCircleRight />
                     </Flex >
                 </Box>

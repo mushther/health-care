@@ -1,14 +1,18 @@
 import { Box, Button, Flex, Heading, Image, Input, Text, Textarea } from '@chakra-ui/react'
-import { logDOM } from '@testing-library/react'
 import axios from 'axios'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AiOutlineStar, AiTwotoneStar } from 'react-icons/ai'
 import { IoMdSend } from 'react-icons/io'
 import { AuthContextProvider } from '../Context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const Review = () => {
     const [data] = useState(JSON.parse(localStorage.getItem("appointment")));
     const { picProfile, state } = useContext(AuthContextProvider);
+    const [data1, setData1] = useState([]);
+    const [id9, setId9] = useState(0);
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false)
     const [star, setStar] = useState({
         star1: "",
         star2: "",
@@ -18,13 +22,23 @@ const Review = () => {
     });
     const [starVlaue, setStarValue] = useState(0);
     const [reviewData, setReviewData] = useState({
+        id: "",
         title: "",
         discription: "",
         rating: "",
         username: state.name,
-        image: picProfile
+        image: picProfile,
     });
-    console.log(reviewData);
+    //console.log(id9)
+    useEffect(() => {
+        axios.get(`https://renderapi-h6ct.onrender.com/doctor`).then((res) => {
+            //setData1(res.data);
+            setData1(res.data[data.id].review);
+            setId9(res.data[data.id].review.length + 1)
+        })
+    }, [])
+
+
 
     const starRating = (value) => {
         setStarValue(value);
@@ -42,14 +56,19 @@ const Review = () => {
     }
 
     const postReviewOnChnage = (e) => {
-        setReviewData({ ...reviewData, [e.target.name]: e.target.value, rating: starVlaue })
+        setReviewData({ ...reviewData, [e.target.name]: e.target.value, rating: starVlaue, id: id9 })
     }
-    const postReview = () => {
-        axios.post(`https://renderapi-h6ct.onrender.com/doctor`,)
+    const postReview = (id) => {
+        setIsLoading(true)
+        data1.push(reviewData)
+        //console.log(data1);
+        // console.log(id);
+        axios.patch(`https://renderapi-h6ct.onrender.com/doctor/${id}`, { review: data1 },).then((res) => {
+            alert("updated ");
+            setIsLoading(false)
+            navigate("/doctorDetails")
+        })
     }
-
-
-
 
     return (
         <Box m='auto' mt={"80px"} pt={"50px"} pb={"50px"} w='80%' display={'grid'} gap={5}>
@@ -76,7 +95,7 @@ const Review = () => {
                 </Flex>
                 <Input name='title' value={reviewData.title} onChange={(e) => { postReviewOnChnage(e) }} placeholder='Write Review Title' width={"100%"} border={'none'} />
                 <Textarea name='discription' value={reviewData.discription} onChange={(e) => { postReviewOnChnage(e) }} placeholder='Description...' width={"100%"} border={'none'} mt={5} mb={5} />
-                <Flex justifyContent={'end'}><Button width={"10%"} colorScheme='facebook' gap={2}>Send<IoMdSend /></Button></Flex>
+                <Flex justifyContent={'end'}><Button isLoading={isLoading} width={"10%"} colorScheme='facebook' gap={2} onClick={() => { postReview(data.id) }}>Send<IoMdSend /></Button></Flex>
             </Box>
         </Box>
     )
