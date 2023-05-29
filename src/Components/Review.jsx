@@ -29,16 +29,23 @@ const Review = () => {
         username: state.name,
         image: picProfile,
     });
+    /*window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });*/
     //console.log(id9)
-    useEffect(() => {
+    //console.log(data1)
+    const getData = () => {
         axios.get(`https://renderapi-h6ct.onrender.com/doctor`).then((res) => {
             //setData1(res.data);
             setData1(res.data[data.id].review);
             setId9(res.data[data.id].review.length + 1)
         })
+    }
+    useEffect(() => {
+        getData();
     }, [])
-
-
 
     const starRating = (value) => {
         setStarValue(value);
@@ -64,9 +71,9 @@ const Review = () => {
         //console.log(data1);
         // console.log(id);
         axios.patch(`https://renderapi-h6ct.onrender.com/doctor/${id}`, { review: data1 },).then((res) => {
-            alert("updated ");
             setIsLoading(false)
             navigate("/doctorDetails")
+            getData();
         })
     }
 
@@ -74,7 +81,7 @@ const Review = () => {
         <Box m='auto' mt={"80px"} pt={"50px"} pb={"50px"} w='80%' display={'grid'} gap={5}>
             <Box display={'flex'} justifyContent={'space-between'} gap={10} border={'1px solid white'} p={5} borderRadius={5}>
                 <Box>
-                    <Text fontWeight={'bold'} textAlign={'start'}>{data.doctorname}</Text>
+                    <Heading fontWeight={'bold'} fontSize={'2xl'} textAlign={'start'}>{data.doctorname}</Heading>
                     <Text fontWeight={'bold'} textAlign={'start'} py='2'>{data.eduction}</Text>
                     <Text fontWeight={'bold'} textAlign={'start'} py='2'> Address: {data.address}</Text>
                 </Box>
@@ -83,6 +90,13 @@ const Review = () => {
             </Box>
             <Box w={"100%"} display={'flex'} flexDirection={'column'} m='auto' height={"auto"} border={'1px solid white'} p={5} borderRadius={5}>
                 <Heading size={'md'} textAlign={'start'} ml={4}>Write your review</Heading>
+                <Box display={'flex'} gap={5} mt={4} ml={4}>
+                    <Image src={picProfile} w={"50px"} h={"50px"} borderRadius={"50%"} />
+                    <Box>
+                        <Heading size={'md'}>{state.name}</Heading>
+                        <Text color={'blue.300'} textAlign={'start'} size={'xs'}>{state.userId}</Text>
+                    </Box>
+                </Box>
                 <Flex width={"100%"} alignItems={'center'} ml={4} mt={5} mb={3} fontSize={'3xl'}>
                     <Text onClick={(e) => { starRating(1) }}>{star.star1 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
                     <Text onClick={(e) => { starRating(2) }}>{star.star2 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
