@@ -41,7 +41,8 @@ const DoctorList = () => {
             "doctorfee": el.doctorfee,
             "address": el.address,
             "appointment": el.appointment,
-            "rating": el.rating
+            "rating": el.rating,
+            "doctorUserId": el.doctorUserId
         }
         localStorage.setItem("appointment", JSON.stringify(drid))
     }

@@ -11,11 +11,11 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
     const navigate = useNavigate();
-    window.scrollTo({
+    /*window.scrollTo({
         top: 0,
         left: 0,
         behavior: "smooth",
-    });
+    });*/
     const getData = () => {
         setIsLoading(true)
         axios.get(`https://renderapi-h6ct.onrender.com/doctor?_limit=8`).then((res) => {
@@ -39,7 +39,8 @@ const Home = () => {
             "doctorfee": el.doctorfee,
             "address": el.address,
             "appointment": el.appointment,
-            "rating": el.rating
+            "rating": el.rating,
+            "doctorUserId": el.doctorUserId
         }
         localStorage.setItem("appointment", JSON.stringify(drid))
     }

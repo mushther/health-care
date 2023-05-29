@@ -27,6 +27,7 @@ const BookAppointment = () => {
         description: "",
         doctorname: appointment.doctorname,
         doctorfee: appointment.doctorfee,
+        doctorUserId: appointment.doctorUserId,
         userId: state.userId
     }
     const [formState, setFormState] = useState(initialData);

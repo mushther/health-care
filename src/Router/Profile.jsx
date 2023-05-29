@@ -3,7 +3,10 @@ import { Box, Button, Card, CardBody, FormControl, FormLabel, Heading, Image, In
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContextProvider } from '../Context/AuthContext'
 import axios from 'axios'
-import { FaEdit, FaSave, FaUser } from 'react-icons/fa'
+import { FaEdit, FaHome, FaSave, FaTicketAlt, FaUser } from 'react-icons/fa'
+import { MdFavoriteBorder } from 'react-icons/md'
+import { IoBagCheck } from 'react-icons/io5'
+import { useNavigate } from 'react-router-dom'
 
 const Profile = () => {
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
@@ -11,8 +14,11 @@ const Profile = () => {
     const { state } = useContext(AuthContextProvider);
     const [data1, setData1] = useState([]);
     const [edit, setEdit] = useState("")
+    const [edit1, setEdit1] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const toast = useToast();
+    const navigate = useNavigate();
+
     window.scrollTo({
         top: 0,
         left: 0,
@@ -61,11 +67,12 @@ const Profile = () => {
             const file = event.target.files[0];
             const form = new FormData();
             form.append('image', file);
-
+            setEdit1(true)
             const res = await axios.post(
                 'https://api.imgbb.com/1/upload?key=292bb16f0eac608f96dca44606b64c4c',
                 form
             );
+            setEdit1(false)
             toast({
                 title: 'Photo uploaded.',
                 description: "We've uploaded your photo.",
@@ -118,16 +125,15 @@ const Profile = () => {
                             alt='profile icon'
                         />}
                     {
-                        edit === "" ? <Text display={'flex'} alignItems={'end'} ><FaEdit /></Text> :
+                        edit === "" ? null :
                             <Input display={'flex'} alignItems={'end'} type='file' id="image" onChange={handleImage} />
-
                     }
                 </Box>
                 <Stack w={"100%"}>
                     <Text display={'flex'} w={"100%"} justifyContent={'end'} alignItems={'end'} >
                         {edit === "" ?
                             <Button size={'xs'} colorScheme='blue' gap={2} onClick={(e) => { setEdit("Edit") }}>Edit Profile<FaEdit /></Button>
-                            : <Button isLoading={isLoading} size={'xs'} colorScheme='blue' gap={2} onClick={(e) => { handleSaveChangeEdit() }}>Save Profile<FaSave /></Button>}
+                            : <Button isLoading={isLoading} size={'xs'} colorScheme='blue' disabled={edit1} gap={2} onClick={(e) => { handleSaveChangeEdit() }}>Save Profile<FaSave /></Button>}
                     </Text>
                     <CardBody w={"100%"} p={1} pl={10}>
                         {edit === "" ?
@@ -152,6 +158,12 @@ const Profile = () => {
                     </CardBody>
                 </Stack>
             </Card>
+            <Box display={'grid'} gridTemplateColumns={"repeat(2, 1fr)"} gap={10} mt={10}>
+                <Heading display={'flex'} alignItems={'center'} justifyContent={'center'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/") }}><FaHome /> Home</Heading>
+                <Heading display={'flex'} alignItems={'center'} justifyContent={'center'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/userlist") }}><FaTicketAlt /> Booked Appointment</Heading>
+                <Heading display={'flex'} alignItems={'center'} justifyContent={'center'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/order") }}><IoBagCheck /> Order</Heading>
+                <Heading display={'flex'} alignItems={'center'} justifyContent={'center'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/wish") }}><MdFavoriteBorder /> Wishlist</Heading>
+            </Box>
         </Box>
     )
 }

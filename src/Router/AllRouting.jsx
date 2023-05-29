@@ -20,7 +20,7 @@ const AllRouting = () => {
         <>
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/doctorlist' element={<PrivateRoute><DoctorList /></PrivateRoute>} />
+                <Route path='/doctorlist' element={<DoctorList />} />
                 <Route path='/userlist' element={<PrivateRoute><Userlist /></PrivateRoute>} />
                 <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
                 <Route path='/signup' element={<SignUp />} />
