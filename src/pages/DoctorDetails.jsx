@@ -1,29 +1,48 @@
 
-import React, { useEffect, useState } from 'react'
-import { Box, Button, Card, CardBody, CardFooter, Flex, Heading, Image, Stack, Text, useMediaQuery, } from '@chakra-ui/react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Box, Button, Card, CardBody, CardFooter, Flex, Heading, Image, Stack, Text, useMediaQuery, useToast, } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { TbListDetails } from 'react-icons/tb'
 import { FaEdit, FaStar } from 'react-icons/fa'
 import axios from 'axios'
+import { AuthContextProvider } from '../Context/AuthContext'
 
 const DoctorDetails = () => {
+    const { state } = useContext(AuthContextProvider);
     const [data] = useState(JSON.parse(localStorage.getItem("appointment")))
     const navigate = useNavigate();
     const [data1, setData1] = useState([])
+    const [userEligibleState, setUserEligibleState] = useState("")
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-    /*  window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-      });*/
-
+    const toast = useToast();
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
     useEffect(() => {
         axios.get(`https://renderapi-h6ct.onrender.com/doctor`).then((res) => {
-            //setData1(res.data);
-            setData1(res.data[data.id].review);
+            setData1(res.data[data.id - 1].review);
+        })
+        axios.get(`https://renderapi-h6ct.onrender.com/user`).then((res) => {
+            const filtered = res.data.find((item) => item.userId === state.userId && item.doctorUserId === data.doctorUserId);
+            //console.log(filtered);
+            setUserEligibleState(filtered);
         })
     }, [])
-    console.log(data1);
+    const handleuserEligibleState = () => {
+        if (userEligibleState) {
+            navigate("/review")
+        } else {
+            toast({
+                title: `Haven't booked appointment`,
+                description: `Sorry, You are not allowed to review because you haven't booked an appointment.`,
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
+    }
     return (
         <Box m='auto' mt={"80px"} pt={"50px"} pb={"50px"} w='80%' display={'grid'} gap={5}>
             <Heading display='flex' gap={4} alignItems={'center'}> <TbListDetails /> Doctor Details</Heading>
@@ -34,9 +53,7 @@ const DoctorDetails = () => {
                     padding={5}
                     direction={{ base: 'column', sm: 'row' }}
                     overflow='hidden'
-                    //variant='outline'
                     color={'white'}
-
                 >
                     <Image
                         objectFit='cover'
@@ -89,7 +106,7 @@ const DoctorDetails = () => {
                 </Card>
                 <Box display={'flex'} justifyContent={'space-between'} p={5} w={"100%"}>
                     <Heading size={'lg'}>Ratings & Reviews</Heading>
-                    <Heading py='2' w={'30%'} display={'flex'} alignItems={'center'} gap={2} size={'sm'} _hover={{ color: "lightblue", textDecoration: 'underline' }} onClick={() => { navigate('/review') }}>Write Your Review <FaEdit /></Heading>
+                    <Heading py='2' w={'30%'} display={'flex'} alignItems={'center'} gap={2} size={'sm'} _hover={{ color: "lightblue", textDecoration: 'underline' }} onClick={() => { handleuserEligibleState() }}>Write Your Review <FaEdit /></Heading>
                 </Box>
                 <Box width={"100%"} p={5} mt={-5}>
                     <Flex borderRadius={10} gap={5} p={"10px 10px 10px 10px"} w={"13%"} background={"yellow.600"}>
@@ -97,16 +114,18 @@ const DoctorDetails = () => {
                         <Heading size={'sm'} display={'flex'} alignItems={'center'} gap={1}>{data.rating}<FaStar /></Heading>
                     </Flex>
                     {data1.map((el) => (
-                        <Box border={"1px solid #511451f3"} borderRadius={5} p={2} mt={2} mb={2}>
+                        <Box border={"1px solid #511451f3"} borderRadius={5} p={5} mt={2} mb={2}>
                             <Box display={'flex'} gap={5}>
                                 <Image src={el.image} w={"30px"} h={"30px"} borderRadius={"50%"} />
                                 <Heading size={'md'}>{el.username}</Heading>
                             </Box>
-                            <Box display={'flex'} gap={5} mt={1}>
-                                <Box display={'flex'} alignItems={'center'} gap={1} borderRadius={5} bg={el.rating >= 3 ? "green" : "red"} p={"2px"}>{el.rating} <FaStar /></Box>
-                                <Text size={'sm'}>{el.title}</Text>
+                            <Box>
+                                <Box display={'flex'} gap={5} mt={3}>
+                                    <Box display={'flex'} fontSize={'xs'} alignItems={'center'} gap={1} borderRadius={5} bg={el.rating >= 3 ? "green" : "red"} padding={"0px 5px 0px 5px"}> {el.rating}<FaStar /></Box>
+                                    <Text size={'sm'}>{el.title}</Text>
+                                </Box>
+                                <Text mt={2} textAlign={'start'} size={'md'}>{el.discription}</Text>
                             </Box>
-                            <Text textAlign={'start'} size={'md'}>{el.discription}</Text>
                         </Box>
                     ))}
                 </Box>
