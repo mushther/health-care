@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormHelperText, FormLabel, Heading, Input, useToast } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormHelperText, FormLabel, Heading, Input, useMediaQuery, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -21,6 +21,8 @@ const SignUp = () => {
     const [DisabledUserId, setDisabledUserId] = useState(false)
     const [DisabledMobile, setDisabledMobile] = useState(false)
     const [DisabledEmail, setDisabledEmail] = useState(false)
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+
     window.scrollTo({
         top: 0,
         left: 0,
@@ -151,6 +153,7 @@ const SignUp = () => {
                     display="block"
                     margin="none"
                     marginTop="15px"
+                    marginBottom={isLargerThan600 ? null : "15px"}
                     colorScheme="blue"
                     isLoading={isLoading}
                     onClick={handleSignup}

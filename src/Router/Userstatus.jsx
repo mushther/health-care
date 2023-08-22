@@ -8,7 +8,7 @@ const Userstatus = ({ data = [] }) => {
 
     return (
         <Box w={isLargerThan600 ? "60%" : '100%'} m='auto' mt={"20px"}>
-            <Heading mb={10} display={'flex'} gap={4} alignItems={'center'}><FaMapMarkedAlt /><span>Your Current Booking Status</span></Heading>
+            <Heading mb={10} display={'flex'} gap={4} alignItems={'center'} size={isLargerThan600 ? "lg" : "md"}><FaMapMarkedAlt /><span>Your Booking Status</span></Heading>
             <Box >
                 <Card
                     position={"none"}

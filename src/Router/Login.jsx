@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Heading, Input } from '@chakra-ui/react'
+import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Heading, Input, useMediaQuery } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContextProvider } from '../Context/AuthContext'
@@ -15,6 +15,7 @@ const Login = () => {
         email: "",
         password: ""
     })
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
     window.scrollTo({
         top: 0,
         left: 0,
@@ -83,8 +84,8 @@ const Login = () => {
                     colorScheme={"blue"}
                     isLoading={isLoading}
                 >Login</Button>
-                <Box display={'flex'} w={"27%"} ml="73%" justifyContent={'space-between'} justifyItems={'center'} border={"0px solid white"}>
-                    <Flex onClick={() => { navigate('/signup') }} gap={4} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} p={1} pl={3} pr={3} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
+                <Box display={isLargerThan600 ? 'flex' : 'grid'} justifyContent={'space-between'} justifyItems={'center'} gap={isLargerThan600 ? '0px' : '10px'} w={isLargerThan600 ? "27%" : "64%"} mt={isLargerThan600 ? "0px" : "10px"} ml={isLargerThan600 ? "73%" : "0%"} border={"0px solid white"} >
+                    <Flex onClick={() => { navigate('/signup') }} gap={4} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} ml={isLargerThan600 ? "0px" : '0px'} p={1} pl={3} pr={3} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
                         SignUp Here <FaArrowAltCircleRight />
                     </Flex >
                     <Flex gap={4} onClick={() => { navigate('/forgotPassword') }} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} p={1} pl={3} pr={3} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>

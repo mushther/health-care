@@ -41,7 +41,7 @@ const Status = () => {
         <Box w={"80%"} pb={"495px"} pt={"65px"} m={"auto"} mt={"80px"} textAlign='center'>
             {flag ?
                 <FormControl position={"none"}>
-                    <Heading mb={10} display='flex' gap={4} alignItems={'center'}><FaMapMarkedAlt /> Check Your Booking Status</Heading>
+                    <Heading mb={10} display='flex' gap={4} alignItems={'center'} size={isLargerThan600 ? "lg" : 'md'}><FaMapMarkedAlt /> Check Booking Status</Heading>
 
                     <FormLabel>Token/Mobile Number</FormLabel>
                     <Input

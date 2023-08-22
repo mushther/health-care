@@ -90,8 +90,8 @@ const Profile = () => {
         }
     }
     return (
-        <Box w='80%' color={'white'} m='auto' mt={"80px"} p={"120px"} gap={5}>
-            <Heading display='flex' pb={5} gap={4} alignItems={'center'}><FaUser /> Your Profile Details</Heading>
+        <Box w='80%' color={'white'} m='auto' mt={"80px"} p={isLargerThan600 ? "120px" : "0px"} gap={5}>
+            <Heading size={'md'} display='flex' pb={5} gap={4} alignItems={'center'}> <FaUser /> Your Profile Details</Heading>
             <Card
                 position={"none"}
                 color={'white'}
@@ -129,19 +129,19 @@ const Profile = () => {
                             <Input display={'flex'} alignItems={'end'} type='file' id="image" onChange={handleImage} />
                     }
                 </Box>
-                <Stack w={"100%"}>
-                    <Text display={'flex'} w={"100%"} justifyContent={'end'} alignItems={'end'} >
+                <Stack w={"100%"} border={'0px solid white'} >
+                    <Text display={'flex'} w={"100%"} justifyContent={isLargerThan600 ? 'end' : 'center'}>
                         {edit === "" ?
                             <Button size={'xs'} colorScheme='blue' gap={2} onClick={(e) => { setEdit("Edit") }}>Edit Profile<FaEdit /></Button>
                             : <Button isLoading={isLoading} size={'xs'} colorScheme='blue' disabled={edit1} gap={2} onClick={(e) => { handleSaveChangeEdit() }}>Save Profile<FaSave /></Button>}
                     </Text>
-                    <CardBody w={"100%"} p={1} pl={10}>
+                    <CardBody w={"100%"} p={1} pl={isLargerThan600 ? 10 : 0}>
                         {edit === "" ?
                             <Box>
-                                <Heading pb={4} textAlign={"start"} size='lg'>{data1.name}</Heading>
-                                <Heading display={'flex'} pb={5} justifyContent={'space-between'} textAlign={"start"} size='md'> User ID: {data1.userId}</Heading>
-                                <Heading display={'flex'} pb={2} justifyContent={'space-between'} textAlign={"start"} size='sm'> Email Id: {data1.email}</Heading>
-                                <Heading display={'flex'} pb={2} justifyContent={'space-between'} textAlign={"start"} size='sm'> Contact Number: {data1.mobile} </Heading>
+                                <Heading pb={isLargerThan600 ? 4 : 2} textAlign={"start"} size={isLargerThan600 ? 'lg' : 'md'}>{data1.name}</Heading>
+                                <Heading display={'flex'} pb={isLargerThan600 ? 5 : 1} justifyContent={'space-between'} textAlign={"start"} size={isLargerThan600 ? 'md' : 'xs'}> User ID: {data1.userId}</Heading>
+                                <Heading display={'flex'} pb={2} justifyContent={'space-between'} textAlign={"start"} size={isLargerThan600 ? 'md' : 'xs'}> Email Id: {data1.email}</Heading>
+                                <Heading display={'flex'} pb={2} justifyContent={'space-between'} textAlign={"start"} size={isLargerThan600 ? 'md' : 'xs'}> Contact Number: {data1.mobile} </Heading>
                             </Box>
                             :
                             <Box>
@@ -158,11 +158,11 @@ const Profile = () => {
                     </CardBody>
                 </Stack>
             </Card>
-            <Box display={'grid'} gridTemplateColumns={"repeat(2, 1fr)"} gap={10} mt={10}>
-                <Heading display={'flex'} alignItems={'center'} justifyContent={'center'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/") }}><FaHome /> Home</Heading>
-                <Heading display={'flex'} alignItems={'center'} justifyContent={'center'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/userlist") }}><FaTicketAlt /> Booked Appointment</Heading>
-                <Heading display={'flex'} alignItems={'center'} justifyContent={'center'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/order") }}><IoBagCheck /> Order</Heading>
-                <Heading display={'flex'} alignItems={'center'} justifyContent={'center'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/wish") }}><MdFavoriteBorder /> Wishlist</Heading>
+            <Box display={'grid'} gridTemplateColumns={isLargerThan600 ? "repeat(2, 1fr)" : "repeat(1, 1fr)"} gap={10} mb={5} mt={10}>
+                <Heading display={'flex'} alignItems={'center'} justifyContent={isLargerThan600 ? 'center' : 'start'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/") }}><FaHome /> Home</Heading>
+                <Heading display={'flex'} alignItems={'center'} justifyContent={isLargerThan600 ? 'center' : 'start'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/userlist") }}><FaTicketAlt /> Booked Appointment</Heading>
+                <Heading display={'flex'} alignItems={'center'} justifyContent={isLargerThan600 ? 'center' : 'start'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/order") }}><IoBagCheck /> Order</Heading>
+                <Heading display={'flex'} alignItems={'center'} justifyContent={isLargerThan600 ? 'center' : 'start'} gap={4} size={'md'} _hover={{ background: "white", color: "#2c022cf3" }} border={"1px solid white"} borderRadius={5} p={2} onClick={() => { navigate("/wish") }}><MdFavoriteBorder /> Wishlist</Heading>
             </Box>
         </Box>
     )

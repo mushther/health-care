@@ -15,6 +15,7 @@ const DoctorDetails = () => {
     const [userEligibleState, setUserEligibleState] = useState("")
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
     const toast = useToast();
+
     window.scrollTo({
         top: 0,
         left: 0,
@@ -66,7 +67,7 @@ const DoctorDetails = () => {
 
                     <Stack position={"none"}>
                         <CardBody>
-                            <Heading textAlign={"start"} size='xl'>{data.doctorname}</Heading>
+                            <Heading textAlign={"start"} size={'xl'}>{data.doctorname}</Heading>
                             <Box display={isLargerThan600 ? 'grid' : 'grid'} textAlign='start' gap={isLargerThan600 ? 0 : 0}>
                                 <Heading size={'sm'} py='2'>
                                     {data.eduction}
@@ -104,12 +105,12 @@ const DoctorDetails = () => {
                         </CardBody>
                     </Stack>
                 </Card>
-                <Box display={'flex'} justifyContent={'space-between'} p={5} w={"100%"}>
+                <Box display={isLargerThan600 ? 'flex' : 'grid'} justifyContent={'space-between'} p={5} w={"100%"}>
                     <Heading size={'lg'}>Ratings & Reviews</Heading>
-                    <Heading py='2' w={'30%'} display={'flex'} alignItems={'center'} gap={2} size={'sm'} _hover={{ color: "lightblue", textDecoration: 'underline' }} onClick={() => { handleuserEligibleState() }}>Write Your Review <FaEdit /></Heading>
+                    <Heading py='2' w={isLargerThan600 ? '30%' : '100%'} display={'flex'} alignItems={'center'} gap={2} size={'sm'} _hover={{ color: "lightblue", textDecoration: 'underline' }} onClick={() => { handleuserEligibleState() }}>Write Your Review <FaEdit /></Heading>
                 </Box>
                 <Box width={"100%"} p={5} mt={-5}>
-                    <Flex borderRadius={10} gap={5} p={"10px 10px 10px 10px"} w={"13%"} background={"yellow.600"}>
+                    <Flex borderRadius={10} gap={5} p={"10px 10px 10px 10px"} w={isLargerThan600 ? "13%" : "70%"} background={"yellow.600"}>
                         <Heading size={'sm'}>Rating :</Heading>
                         <Heading size={'sm'} display={'flex'} alignItems={'center'} gap={1}>{data.rating}<FaStar /></Heading>
                     </Flex>

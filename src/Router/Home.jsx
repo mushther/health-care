@@ -168,7 +168,7 @@ const Home = () => {
                         ))}
                     </Box>}
             <Box w={"100%"} display={'flex'} justifyContent={'end'} mt={-10} >
-                <Heading onClick={() => { navigate('/doctorlist') }} w={"10%"} size={'md'} display={'flex'} mr={"6%"} justifyContent={'end'} alignItems={'end'} gap={2} _hover={{ color: 'lightblue', textDecoration: 'underline' }} >Show more <BsArrowRightShort /></Heading>
+                <Heading onClick={() => { navigate('/doctorlist') }} w={isLargerThan600 ? "10%" : "50%"} size={isLargerThan600 ? 'md' : "sm"} display={'flex'} mt={isLargerThan600 ? "" : "25px"} mr={"6%"} justifyContent={'end'} alignItems={'end'} gap={2} _hover={{ color: 'lightblue', textDecoration: 'underline' }} >Show more <BsArrowRightShort /></Heading>
             </Box>
             <Heading color={'white'} padding={isLargerThan600 ? "20px 80px 80px 80px" : "20px"} size={isLargerThan600 ? 'xl' : "md"} textAlign={"start"}>Medicine</Heading>
             {isLoading ?

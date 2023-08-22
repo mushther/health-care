@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useToast } from '@chakra-ui/react';
+import { useMediaQuery, useToast } from '@chakra-ui/react';
 import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Heading, Input } from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContextProvider } from '../Context/AuthContext';
@@ -16,6 +16,7 @@ const ForgotPassowrd = () => {
         email: "",
         userId: ""
     })
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
     window.scrollTo({
         top: 0,
         left: 0,
@@ -27,7 +28,7 @@ const ForgotPassowrd = () => {
         axios.get(`https://renderapi-h6ct.onrender.com/loginData`).then((res) => {
 
             const forgotD = res.data.find((el) => el.email == forgotData.email && el.userId == forgotData.userId)
-            console.log(forgotD);
+            // console.log(forgotD);
             if (forgotD) {
                 setData(forgotD)
                 setIsLoading(false)
@@ -89,13 +90,12 @@ const ForgotPassowrd = () => {
                     <Heading size={'md'}>Password: {data.password}</Heading>
                 </Box>
             }
-            <Box display={'flex'} w={"27%"} pb={"355px"} ml="77%" justifyContent={'space-between'} justifyItems={'center'} >
-
+            <Box display={isLargerThan600 ? 'flex' : 'grid'} justifyContent={'space-between'} justifyItems={'center'} gap={isLargerThan600 ? '0px' : '10px'} w={isLargerThan600 ? "27%" : "64%"} mb={"40px"} mt={isLargerThan600 ? "0px" : "10px"} ml={isLargerThan600 ? "73%" : "0%"} border={"0px solid white"} >
+                <Flex gap={4} onClick={() => { navigate('/login') }} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} ml={isLargerThan600 ? null : "0px"} p={1} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
+                    Login <FaArrowAltCircleRight />
+                </Flex >
                 <Flex gap={4} onClick={() => { navigate('/signup') }} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} p={1} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
                     SignUp Here <FaArrowAltCircleRight />
-                </Flex >
-                <Flex gap={4} onClick={() => { navigate('/login') }} justifyContent={'center'} alignItems={'center'} border={"1px solid white"} m={"auto"} p={1} borderRadius={10} _hover={{ bg: "#4267B2", border: "2px solid white" }}>
-                    Login <FaArrowAltCircleRight />
                 </Flex >
             </Box>
         </Box>

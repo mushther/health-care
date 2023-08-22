@@ -32,7 +32,7 @@ const Userlist = () => {
     // console.log(data);
     return (
         <Box w='80%' display={'grid'} color={'white'} m='auto' mt={"80px"} pt={"50px"} pb={"50px"} gap={5}>
-            <Heading display='flex' gap={4} alignItems={'center'}><FaUser />Appointment Booked User's List</Heading>
+            <Heading display='flex' gap={4} alignItems={'center'} size={isLargerThan600 ? 'lg' : 'md'}><FaUser />Appointment List</Heading>
             {isLoading ? <Box>
                 <CardSkeloten line={4} />
                 <CardSkeloten line={4} />

@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Image, Input, Text, Textarea } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Image, Input, Text, Textarea, useMediaQuery } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { AiOutlineStar, AiTwotoneStar } from 'react-icons/ai'
@@ -7,6 +7,7 @@ import { AuthContextProvider } from '../Context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 const Review = () => {
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
     const [data] = useState(JSON.parse(localStorage.getItem("appointment")));
     const { picProfile, state } = useContext(AuthContextProvider);
     const [data1, setData1] = useState([]);
@@ -79,11 +80,11 @@ const Review = () => {
 
     return (
         <Box m='auto' mt={"80px"} pt={"50px"} pb={"50px"} w='80%' display={'grid'} gap={5}>
-            <Box display={'flex'} justifyContent={'space-between'} gap={10} border={'1px solid white'} p={5} borderRadius={5}>
+            <Box display={'flex'} flexDirection={isLargerThan600 ? 'row' : 'column'} justifyContent={'space-between'} gap={10} border={'1px solid white'} p={5} borderRadius={5}>
                 <Box>
                     <Heading fontWeight={'bold'} fontSize={'2xl'} textAlign={'start'}>{data.doctorname}</Heading>
-                    <Text fontWeight={'bold'} textAlign={'start'} py='2'>{data.eduction}</Text>
-                    <Text fontWeight={'bold'} textAlign={'start'} py='2'> Address: {data.address}</Text>
+                    <Text fontWeight={'bold'} textAlign={'start'} py={isLargerThan600 ? '2' : '0'}>{data.eduction}</Text>
+                    <Text fontWeight={'bold'} textAlign={'start'} py={isLargerThan600 ? '2' : '0'}> Address: {data.address}</Text>
                 </Box>
 
                 <Image src='https://i.pinimg.com/originals/56/d1/c0/56d1c032884032f4216b9bc790c00a1e.jpg' borderRadius={"50%"} width={"100px"} height={"100px"} />
@@ -97,19 +98,21 @@ const Review = () => {
                         <Text color={'blue.300'} textAlign={'start'} size={'xs'}>{state.userId}</Text>
                     </Box>
                 </Box>
-                <Flex width={"100%"} alignItems={'center'} ml={4} mt={5} mb={3} fontSize={'3xl'}>
-                    <Text onClick={(e) => { starRating(1) }}>{star.star1 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
-                    <Text onClick={(e) => { starRating(2) }}>{star.star2 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
-                    <Text onClick={(e) => { starRating(3) }}>{star.star3 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
-                    <Text onClick={(e) => { starRating(4) }}>{star.star4 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
-                    <Text onClick={(e) => { starRating(5) }}>{star.star5 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
-                    <Text fontWeight={'bold'} fontSize={'md'} ml={5} color={starVlaue <= 2 ? "red" : "green"}>
+                <Box display={isLargerThan600 ? 'flex' : 'grid'} width={"100%"} justifyContent={isLargerThan600 ? null : 'start'} alignItems={'center'} ml={4} mt={5} mb={3} fontSize={'3xl'}>
+                    <Flex>
+                        <Text onClick={(e) => { starRating(1) }}>{star.star1 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
+                        <Text onClick={(e) => { starRating(2) }}>{star.star2 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
+                        <Text onClick={(e) => { starRating(3) }}>{star.star3 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
+                        <Text onClick={(e) => { starRating(4) }}>{star.star4 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
+                        <Text onClick={(e) => { starRating(5) }}>{star.star5 === "yes" ? <AiTwotoneStar /> : <AiOutlineStar />}</Text>
+                    </Flex>
+                    <Text fontWeight={'bold'} fontSize={'md'} ml={isLargerThan600 ? 5 : "-5"} color={starVlaue <= 2 ? "red" : "green"}>
                         {starVlaue === 1 && "Very Bad" || starVlaue === 2 && "Bad" || starVlaue === 3 && "Good" || starVlaue === 4 && "Very Good" || starVlaue === 5 && "Excellent"}
                     </Text>
-                </Flex>
+                </Box>
                 <Input name='title' value={reviewData.title} onChange={(e) => { postReviewOnChnage(e) }} placeholder='Write Review Title' width={"100%"} border={'none'} />
                 <Textarea name='discription' value={reviewData.discription} onChange={(e) => { postReviewOnChnage(e) }} placeholder='Description...' width={"100%"} border={'none'} mt={5} mb={5} />
-                <Flex justifyContent={'end'}><Button isLoading={isLoading} width={"10%"} colorScheme='facebook' gap={2} onClick={() => { postReview(data.id) }}>Send<IoMdSend /></Button></Flex>
+                <Flex justifyContent={'end'}><Button isLoading={isLoading} width={isLargerThan600 ? "10%" : "50%"} colorScheme='facebook' gap={2} onClick={() => { postReview(data.id) }}>Send<IoMdSend /></Button></Flex>
             </Box>
         </Box>
     )

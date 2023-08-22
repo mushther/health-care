@@ -142,15 +142,18 @@ const Navbar = () => {
                                         : null}
                                 </DrawerBody>
 
-                                <DrawerFooter>
-                                    <Heading size={'md'} mr={20}>
-                                        User Name
-                                    </Heading>
+                                <DrawerFooter justifyContent={'space-between'}>
+                                    <Flex alignItems={'center'} gap={1} >
+                                        <Image border={"1px solid black"} w={"15%"} borderRadius={'50%'} src={picProfile} />
+                                        <Heading size={'md'} >
+                                            {state.name}
+                                        </Heading>
+                                    </Flex>
                                     {state.isAuth ?
-                                        <Button colorScheme='blue' onClick={handleLogout}>Logout</Button>
+                                        <Button colorScheme='blue' w={"100%"} onClick={handleLogout}>Logout</Button>
                                         :
                                         <Link to="/login">
-                                            <Button colorScheme='blue' onClick={onClose}>Login</Button>
+                                            <Button colorScheme='blue' w={"100%"} onClick={onClose}>Login</Button>
                                         </Link>
                                     }
                                 </DrawerFooter>
